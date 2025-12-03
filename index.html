@@ -17,7 +17,7 @@
         /* --- SISTEMA DE DISEÑO (DARK PREMIUM) --- */
         :root {
             --bg-deep: #0f172a;       /* Azul Noche Profundo */
-            --glass-panel: rgba(30, 41, 59, 0.9);
+            --glass-panel: rgba(30, 41, 59, 0.95); /* Alta opacidad para legibilidad */
             --glass-border: rgba(255, 255, 255, 0.1);
             
             /* Colores de Marca */
@@ -90,7 +90,7 @@
         .services-text {
             font-size: 13px;
             color: var(--text-muted);
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             line-height: 1.5;
             padding: 0 10px;
             border-top: 1px solid rgba(255,255,255,0.05);
@@ -133,8 +133,15 @@
         .btn-whatsapp { background: var(--accent-green); border: none; box-shadow: 0 0 25px rgba(34, 197, 94, 0.2); }
         .btn-whatsapp:active { background: #16a34a; }
         
-        .btn-instagram:active { border-color: #db2777; background: linear-gradient(45deg, rgba(240,148,51,0.2), rgba(204,35,102,0.2)); }
+        /* Botón Guardar Contacto (Estilo Destacado pero elegante) */
+        .btn-save { 
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: var(--brand-blue-3);
+        }
+        .btn-save:hover { background: rgba(59, 130, 246, 0.3); color: white; }
         
+        .btn-instagram:active { border-color: #db2777; background: linear-gradient(45deg, rgba(240,148,51,0.2), rgba(204,35,102,0.2)); }
         .btn-google:active { border-color: #4285F4; background: rgba(66, 133, 244, 0.1); }
 
         /* --- SECCIÓN BANCO --- */
@@ -262,28 +269,35 @@
                 <i class="fas fa-arrow-right btn-arrow"></i>
             </a>
 
-            <!-- 2. INSTAGRAM -->
+            <!-- 2. GUARDAR CONTACTO -->
+            <button onclick="downloadVCard()" class="btn btn-save">
+                <div class="btn-icon"><i class="fas fa-user-plus"></i></div>
+                <div class="btn-label">Guardar Contacto</div>
+                <i class="fas fa-download btn-arrow"></i>
+            </button>
+
+            <!-- 3. INSTAGRAM -->
             <a href="https://www.instagram.com/easycool_climatizacion?igsh=MTkycXJzZXUxdDY3Mw==" class="btn btn-instagram" target="_blank">
                 <div class="btn-icon" style="color: #ec4899;"><i class="fab fa-instagram"></i></div>
                 <div class="btn-label">Ver Nuestros Trabajos</div>
                 <i class="fas fa-chevron-right btn-arrow"></i>
             </a>
 
-            <!-- 3. GOOGLE REVIEWS (NUEVO) -->
+            <!-- 4. GOOGLE REVIEWS -->
             <a href="https://g.page/r/Ccgzu2uxiaSiEBI/review" class="btn btn-google" target="_blank">
                 <div class="btn-icon" style="color: #4285F4;"><i class="fab fa-google"></i></div>
                 <div class="btn-label">Nuestras Opiniones</div>
                 <i class="fas fa-star btn-arrow" style="color: #fbbf24; opacity: 1;"></i>
             </a>
 
-            <!-- 4. LLAMADA -->
+            <!-- 5. LLAMADA -->
             <a href="tel:+56944894101" class="btn">
                 <div class="btn-icon"><i class="fas fa-phone-alt"></i></div>
                 <div class="btn-label">Llamar por Urgencia</div>
                 <i class="fas fa-phone btn-arrow"></i>
             </a>
 
-            <!-- 5. DATOS BANCARIOS (DESPLEGABLE) -->
+            <!-- 6. DATOS BANCARIOS (DESPLEGABLE) -->
             <div id="btn-banco" class="btn" style="opacity: 0.9; border-style: dashed;" onclick="toggleBank()">
                 <div class="btn-icon"><i class="fas fa-university"></i></div>
                 <div class="btn-label">Datos Transferencia</div>
@@ -330,7 +344,7 @@
         </div>
 
         <div class="footer">
-            <p>© 2025 EasyCool Climatización</p> <!-- Eliminado SpA -->
+            <p>© 2025 EasyCool Climatización</p>
             <p>Santiago de Chile 🇨🇱</p>
         </div>
         
@@ -340,7 +354,37 @@
     </div>
 
     <script>
-        // Toggle del Acordeón Bancario
+        // --- 1. LÓGICA DE GUARDAR CONTACTO (vCard) ---
+        function downloadVCard() {
+            // Contenido del archivo VCF (Estándar para guardar contactos)
+            const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:EasyCool Climatización
+ORG:EasyCool Climatización
+TITLE:Servicio Técnico HVAC
+TEL;TYPE=CELL:+56944894101
+EMAIL:ventas@easycoolclimatizacion.com
+URL:https://guerrero1708.github.io/
+NOTE:Venta, Instalación y Mantención de Aire Acondicionado.
+END:VCARD`;
+
+            // Crear el archivo virtualmente
+            const blob = new Blob([vcard], { type: 'text/vcard' });
+            const url = URL.createObjectURL(blob);
+            
+            // Crear link de descarga invisible y hacer click
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'Contacto_EasyCool.vcf');
+            document.body.appendChild(link);
+            link.click();
+            
+            // Limpiar
+            document.body.removeChild(link);
+            showToast('¡Abriendo Contactos!');
+        }
+
+        // --- 2. LÓGICA BANCO ---
         function toggleBank() {
             const content = document.getElementById('bank-info');
             const arrow = document.getElementById('bank-arrow');
@@ -355,7 +399,6 @@
             }
         }
 
-        // Función para Copiar TODO en un solo bloque limpio
         function copyFullBankData() {
             const dataToCopy = `Nombre: Easycool Climatizacion
 RUT: 77.448.234-2
@@ -363,7 +406,6 @@ Banco: Banco Bci
 Tipo Cuenta: Cta Corriente
 Nº Cuenta: 97512508
 Correo: ventas@easycoolclimatizacion.com`;
-
             copyText(dataToCopy);
         }
 
@@ -372,7 +414,6 @@ Correo: ventas@easycoolclimatizacion.com`;
                 navigator.clipboard.writeText(text).then(() => {
                     showToast('¡Datos Copiados al Portapapeles!');
                 }).catch(err => {
-                    console.error('Error copy: ', err);
                     fallbackCopyText(text);
                 });
             } else {
