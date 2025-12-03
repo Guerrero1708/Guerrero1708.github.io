@@ -3,171 +3,406 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto - EasyCool Climatización</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>EasyCool Climatización | Expertos en Confort</title>
+    
+    <!-- Fuentes: Inter (Interfaz) y Poppins (Marca) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
+        /* --- SISTEMA DE DISEÑO (DARK PREMIUM) --- */
+        :root {
+            --bg-deep: #0f172a;       /* Azul Noche Profundo */
+            --glass-panel: rgba(30, 41, 59, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            
+            /* Colores de Marca */
+            --brand-blue-1: #3B82F6;
+            --brand-blue-2: #60A5FA;
+            --brand-blue-3: #93C5FD;
+            
+            --accent-green: #22c55e;  /* WhatsApp Venta */
+            --text-main: #f8fafc;     
+            --text-muted: #94a3b8;    
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, var(--bg-deep) 80%);
+            padding: 20px;
         }
-        .modal-overlay {
-            transition: opacity 0.3s ease;
+
+        /* --- TARJETA PRINCIPAL --- */
+        .profile-card {
+            width: 100%;
+            max-width: 420px;
+            background: var(--glass-panel);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 40px 24px;
+            text-align: center;
+            box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.6);
+            animation: floatUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
-        .modal-container {
-            transition: transform 0.3s ease;
+
+        /* --- LOGO INTEGRADO --- */
+        .brand-header {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
+        .logo-svg-container {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3));
+            animation: breathe 6s ease-in-out infinite; 
+        }
+
+        .logo-text-group { font-family: 'Poppins', sans-serif; line-height: 1.1; }
+        .brand-name { display: block; font-size: 32px; font-weight: 700; letter-spacing: 1px; color: white; text-transform: uppercase; }
+        .brand-tagline { display: block; font-size: 14px; font-weight: 400; color: var(--brand-blue-2); letter-spacing: 2px; text-transform: uppercase; }
+
+        /* --- LEYENDA DE SERVICIOS --- */
+        .services-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.5;
+            padding: 0 10px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 15px;
+        }
+        
+        .services-text span {
+            color: var(--brand-blue-3);
+            font-weight: 500;
+        }
+
+        /* --- BOTONES --- */
+        .links-wrapper { display: flex; flex-direction: column; gap: 14px; }
+
+        .btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 18px 20px;
+            border-radius: 16px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            font-size: 15px;
+            border: 1px solid var(--glass-border);
+            background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .btn:active { transform: scale(0.96); background: rgba(255,255,255,0.1); }
+
+        .btn-icon { font-size: 20px; width: 32px; display: flex; justify-content: center; margin-right: 12px; }
+        .btn-label { flex-grow: 1; text-align: left; }
+        .btn-arrow { opacity: 0.4; font-size: 12px; transition: 0.3s; }
+        .btn:hover .btn-arrow { opacity: 1; transform: translateX(4px); }
+
+        /* Colores Específicos */
+        .btn-whatsapp { background: var(--accent-green); border: none; box-shadow: 0 0 25px rgba(34, 197, 94, 0.2); }
+        .btn-whatsapp:active { background: #16a34a; }
+        
+        .btn-instagram:active { border-color: #db2777; background: linear-gradient(45deg, rgba(240,148,51,0.2), rgba(204,35,102,0.2)); }
+        
+        .btn-google:active { border-color: #4285F4; background: rgba(66, 133, 244, 0.1); }
+
+        /* --- SECCIÓN BANCO --- */
+        .bank-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            margin-top: 5px;
+        }
+
+        .bank-details.active {
+            max-height: 800px;
+            margin-top: 15px;
+            border: 1px solid var(--glass-border);
+            padding-bottom: 20px;
+        }
+
+        .bank-content {
+            padding: 20px 20px 10px 20px;
+            text-align: left;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .bank-row { margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; }
+        .bank-row:last-child { border-bottom: none; margin-bottom: 0; }
+        .bank-label { display: block; font-size: 10px; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .bank-value { font-size: 14px; color: white; font-weight: 500; font-family: monospace; overflow-wrap: break-word;}
+
+        /* Botón de Copiar TODO */
+        .copy-all-btn {
+            width: calc(100% - 40px);
+            margin: 10px 20px 0 20px;
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid var(--brand-blue-1);
+            color: var(--brand-blue-3);
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        
+        .copy-all-btn:active {
+            transform: scale(0.98);
+            background: var(--brand-blue-1);
+            color: white;
+        }
+
+        /* Footer */
+        .footer { margin-top: 40px; font-size: 11px; color: var(--text-muted); opacity: 0.6; }
+
+        /* Mensaje de Copiado (Toast) */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: var(--accent-green);
+            color: #052e16;
+            font-weight: 700;
+            text-align: center;
+            border-radius: 50px;
+            padding: 12px 24px;
+            position: fixed;
+            z-index: 1000;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
+
+        /* --- ANIMACIONES --- */
+        @keyframes floatUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        
+        .logo-bar { animation: slideInRight 0.8s ease-out backwards; }
+        .bar-1 { animation-delay: 0.1s; }
+        .bar-2 { animation-delay: 0.2s; }
+        .bar-3 { animation-delay: 0.3s; }
+
     </style>
 </head>
-<body class="bg-gradient-to-br from-gray-900 to-gray-800 text-white min-h-screen flex items-center justify-center p-4">
+<body>
 
-    <div class="w-full max-w-md mx-auto bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl shadow-2xl p-8 text-center">
+    <div class="profile-card">
         
-        <!-- Sección del Logo y Nombre -->
-        <div class="mb-8">
-            <!-- CORRECCIÓN FINAL: Se usa un marcador de posición. El logo se debe subir junto al archivo index.html -->
-            <img src="logo.png" alt="Logo de la empresa" class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-gray-600 shadow-lg bg-gray-700" onerror="this.onerror=null;this.src='https://placehold.co/120x120/374151/FFFFFF?text=Logo';">
-            <h1 class="text-3xl font-bold text-white">EasyCool Climatización</h1>
-            <p class="text-gray-400 mt-2">Expertos en Climatización y Confort</p>
-        </div>
-
-        <!-- Contenedor de Enlaces -->
-        <div class="space-y-4">
-            
-            <!-- Botón de WhatsApp -->
-            <a href="https://wa.me/56944894101" target="_blank" class="group flex items-center justify-center w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out">
-                <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.55C8.75 21.33 10.37 21.8 12.04 21.8C17.5 21.8 21.95 17.35 21.95 11.89C21.95 6.43 17.5 2 12.04 2ZM12.04 20.13C10.56 20.13 9.12 19.7 7.89 18.9L7.54 18.7L4.41 19.58L5.3 16.53L5.07 16.18C4.21 14.86 3.78 13.38 3.78 11.89C3.78 7.37 7.49 3.66 12.04 3.66C14.25 3.66 16.31 4.53 17.87 6.09C19.43 7.65 20.3 9.71 20.3 11.89C20.3 16.41 16.59 20.13 12.04 20.13ZM17.29 14.45C17.04 14.32 15.88 13.75 15.66 13.67C15.44 13.59 15.29 13.55 15.14 13.78C14.99 14.01 14.53 14.57 14.39 14.72C14.24 14.87 14.1 14.89 13.85 14.77C13.6 14.64 12.79 14.36 11.82 13.48C11.06 12.81 10.55 12.01 10.41 11.78C10.26 11.55 10.38 11.43 10.5 11.31C10.61 11.2 10.76 11.02 10.88 10.88C11 10.73 11.07 10.61 11.19 10.42C11.32 10.22 11.24 10.05 11.17 9.93C11.09 9.81 10.53 8.41 10.31 7.85C10.08 7.29 9.86 7.36 9.7 7.35C9.55 7.34 9.4 7.34 9.25 7.34C9.1 7.34 8.83 7.41 8.61 7.64C8.39 7.87 7.78 8.41 7.78 9.53C7.78 10.65 8.64 11.72 8.76 11.87C8.88 12.02 10.53 14.52 12.98 15.53C13.56 15.77 14.01 15.91 14.34 16.03C14.89 16.22 15.34 16.18 15.62 15.92C15.93 15.64 16.63 14.88 16.8 14.57C16.96 14.26 17.11 14.32 17.29 14.45Z"/></svg>
-                Escríbenos por WhatsApp
-            </a>
-
-            <!-- Botón de Instagram -->
-            <a href="https://www.instagram.com/easycoolclimatizacion?igsh=MTkycXJzZXUxdDY3Mw==" target="_blank" class="group flex items-center justify-center w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out">
-                <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2-9a4 4 0 118 0 4 4 0 01-8 0zm4-2a2 2 0 100 4 2 2 0 000-4z" clip-rule="evenodd"/><path d="M16.5 6.5a1 1 0 100-2 1 1 0 000 2z"/></svg>
-                Síguenos en Instagram
-            </a>
-
-            <!-- Botón de Reseñas de Google -->
-            <a href="https://g.page/r/CfMHQ4wE3CBdxP90TVF/review" target="_blank" class="group flex items-center justify-center w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out">
-                <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.92,10.08H12.2V14H18.1C17.7,16.5 15.6,18 12.2,18C8.7,18 6,15.3 6,12C6,8.7 8.7,6 12.2,6C13.7,6 15.1,6.6 16.2,7.5L19,4.7C17,2.7 14.7,2 12.2,2C6.6,2 2.2,6.5 2.2,12C2.2,17.5 6.6,22 12.2,22C17.8,22 22,17.8 22,12C22,11.3 21.9,10.7 21.92,10.08Z"/></svg>
-                Deja tu Reseña
-            </a>
-
-            <!-- Botón de Llamar Ahora -->
-            <a href="tel:+56944894101" class="group flex items-center justify-center w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out">
-                <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.25 15.25 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1v3.49c0 .55-.45 1-1 1C10.49 21 3 13.51 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.02.74-.25 1.02l-2.2 2.2z"/></svg>
-                Llamar Ahora
-            </a>
-            
-            <!-- Botón para Datos de Transferencia -->
-            <button id="openModalBtn" class="group flex items-center justify-center w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out">
-                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
-                Datos para Transferencia
-            </button>
-
+        <!-- HEADER -->
+        <div class="brand-header">
+            <div class="logo-svg-container">
+                <svg width="100%" height="100%" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="logo-bar bar-1" y="5" width="50" height="10" rx="5" fill="#3B82F6" opacity="0.9"/>
+                    <rect class="logo-bar bar-2" x="5" y="20" width="45" height="10" rx="5" fill="#60A5FA" opacity="0.95"/>
+                    <rect class="logo-bar bar-3" x="10" y="35" width="40" height="10" rx="5" fill="#93C5FD" opacity="1"/>
+                </svg>
+            </div>
+            <div class="logo-text-group">
+                <span class="brand-name">EASYCOOL</span>
+                <span class="brand-tagline">Climatización</span>
+            </div>
         </div>
         
-        <!-- Pie de página -->
-        <div class="mt-8 text-xs text-gray-500">
-            <p>&copy; 2025 EasyCool Climatización. Todos los derechos reservados.</p>
+        <!-- LEYENDA DE SERVICIOS -->
+        <div class="services-text">
+            Venta • Instalación • Mantención<br>
+            <span>Servicio Técnico Aire Acondicionado</span>
         </div>
 
-    </div>
+        <div class="links-wrapper">
+            
+            <!-- 1. WHATSAPP -->
+            <a href="https://wa.me/56944894101?text=Hola%20EasyCool!%20%E2%9D%84%EF%B8%8F%20Vengo%20de%20su%20web%20y%20necesito%20cotizar%20un%20servicio." class="btn btn-whatsapp" target="_blank">
+                <div class="btn-icon"><i class="fab fa-whatsapp"></i></div>
+                <div class="btn-label"><strong>Cotizar Ahora</strong></div>
+                <i class="fas fa-arrow-right btn-arrow"></i>
+            </a>
 
-    <!-- Modal para Datos Bancarios -->
-    <div id="bankModal" class="modal-overlay fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none">
-        <div class="modal-container bg-gray-800 w-full max-w-md mx-auto rounded-2xl shadow-2xl p-8 text-left transform scale-95">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold">Datos para Transferencia</h2>
-                <button id="closeModalBtn" class="text-gray-400 hover:text-white">&times;</button>
+            <!-- 2. INSTAGRAM -->
+            <a href="https://www.instagram.com/easycool_climatizacion?igsh=MTkycXJzZXUxdDY3Mw==" class="btn btn-instagram" target="_blank">
+                <div class="btn-icon" style="color: #ec4899;"><i class="fab fa-instagram"></i></div>
+                <div class="btn-label">Ver Nuestros Trabajos</div>
+                <i class="fas fa-chevron-right btn-arrow"></i>
+            </a>
+
+            <!-- 3. GOOGLE REVIEWS (NUEVO) -->
+            <a href="https://g.page/r/Ccgzu2uxiaSiEBI/review" class="btn btn-google" target="_blank">
+                <div class="btn-icon" style="color: #4285F4;"><i class="fab fa-google"></i></div>
+                <div class="btn-label">Nuestras Opiniones</div>
+                <i class="fas fa-star btn-arrow" style="color: #fbbf24; opacity: 1;"></i>
+            </a>
+
+            <!-- 4. LLAMADA -->
+            <a href="tel:+56944894101" class="btn">
+                <div class="btn-icon"><i class="fas fa-phone-alt"></i></div>
+                <div class="btn-label">Llamar por Urgencia</div>
+                <i class="fas fa-phone btn-arrow"></i>
+            </a>
+
+            <!-- 5. DATOS BANCARIOS (DESPLEGABLE) -->
+            <div id="btn-banco" class="btn" style="opacity: 0.9; border-style: dashed;" onclick="toggleBank()">
+                <div class="btn-icon"><i class="fas fa-university"></i></div>
+                <div class="btn-label">Datos Transferencia</div>
+                <i id="bank-arrow" class="fas fa-chevron-down btn-arrow" style="opacity: 1;"></i>
             </div>
-            <div id="bankDetails" class="space-y-3 text-gray-300">
-                <p><strong>Nombre Titular:</strong> <span id="accName">EasyCool Climatización</span></p>
-                <p><strong>RUT:</strong> <span id="accRUT">77.448.234-2</span></p>
-                <p><strong>Banco:</strong> <span id="accBank">Banco BCI</span></p>
-                <p><strong>Tipo de Cuenta:</strong> <span id="accType">Cuenta Corriente</span></p>
-                <p><strong>N° de Cuenta:</strong> <span id="accNumber">97512508</span></p>
-                <p><strong>Correo para confirmar:</strong> <span id="accEmail">ventas@easycoolclimatizacion.com</span></p>
+
+            <!-- CONTENEDOR DE DATOS -->
+            <div id="bank-info" class="bank-details">
+                <div class="bank-content">
+                    
+                    <div class="bank-row">
+                        <span class="bank-label">Titular</span>
+                        <div class="bank-value">Easycool Climatizacion</div>
+                    </div>
+
+                    <div class="bank-row">
+                        <span class="bank-label">RUT</span>
+                        <div class="bank-value">77.448.234-2</div>
+                    </div>
+
+                    <div class="bank-row">
+                        <span class="bank-label">Banco / Tipo</span>
+                        <div class="bank-value">Banco Bci / Cta Corriente</div>
+                    </div>
+
+                    <div class="bank-row">
+                        <span class="bank-label">Nº Cuenta</span>
+                        <div class="bank-value">97512508</div>
+                    </div>
+
+                    <div class="bank-row">
+                        <span class="bank-label">Correo</span>
+                        <div class="bank-value" style="font-size: 11px;">ventas@easycoolclimatizacion.com</div>
+                    </div>
+
+                </div>
+                
+                <!-- BOTÓN COPIAR TODO -->
+                <button class="copy-all-btn" onclick="copyFullBankData()">
+                    <i class="fas fa-copy"></i> COPIAR TODOS LOS DATOS
+                </button>
             </div>
-            <div class="mt-6 flex space-x-4">
-                <button id="copyDetailsBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300">Copiar Datos</button>
-                <button id="closeModalBtn2" class="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300">Cerrar</button>
-            </div>
-            <p id="copyMessage" class="text-center text-green-400 mt-4 text-sm opacity-0 transition-opacity duration-300">¡Datos copiados al portapapeles!</p>
+
         </div>
+
+        <div class="footer">
+            <p>© 2025 EasyCool Climatización</p> <!-- Eliminado SpA -->
+            <p>Santiago de Chile 🇨🇱</p>
+        </div>
+        
+        <!-- Notificación Toast -->
+        <div id="toast"><i class="fas fa-check-circle"></i> ¡Datos Copiados!</div>
+
     </div>
 
     <script>
-        // --- Lógica del Modal ---
-        const openModalBtn = document.getElementById('openModalBtn');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const closeModalBtn2 = document.getElementById('closeModalBtn2');
-        const bankModal = document.getElementById('bankModal');
-        const modalContainer = bankModal.querySelector('.modal-container');
-
-        const openModal = () => {
-            bankModal.classList.remove('pointer-events-none');
-            bankModal.classList.add('opacity-100');
-            modalContainer.classList.add('scale-100');
-            modalContainer.classList.remove('scale-95');
-        };
-
-        const closeModal = () => {
-            modalContainer.classList.remove('scale-100');
-            modalContainer.classList.add('scale-95');
-            bankModal.classList.remove('opacity-100');
-            bankModal.classList.add('pointer-events-none');
-        };
-
-        openModalBtn.addEventListener('click', openModal);
-        closeModalBtn.addEventListener('click', closeModal);
-        closeModalBtn2.addEventListener('click', closeModal);
-        
-        // Cerrar modal al hacer clic fuera
-        bankModal.addEventListener('click', (event) => {
-            if (event.target === bankModal) {
-                closeModal();
+        // Toggle del Acordeón Bancario
+        function toggleBank() {
+            const content = document.getElementById('bank-info');
+            const arrow = document.getElementById('bank-arrow');
+            content.classList.toggle('active');
+            
+            if (content.classList.contains('active')) {
+                arrow.classList.remove('fa-chevron-down');
+                arrow.classList.add('fa-chevron-up');
+            } else {
+                arrow.classList.remove('fa-chevron-up');
+                arrow.classList.add('fa-chevron-down');
             }
-        });
+        }
 
-        // --- Lógica para Copiar Datos ---
-        const copyDetailsBtn = document.getElementById('copyDetailsBtn');
-        const copyMessage = document.getElementById('copyMessage');
+        // Función para Copiar TODO en un solo bloque limpio
+        function copyFullBankData() {
+            const dataToCopy = `Nombre: Easycool Climatizacion
+RUT: 77.448.234-2
+Banco: Banco Bci
+Tipo Cuenta: Cta Corriente
+Nº Cuenta: 97512508
+Correo: ventas@easycoolclimatizacion.com`;
 
-        copyDetailsBtn.addEventListener('click', () => {
-            const name = document.getElementById('accName').innerText;
-            const rut = document.getElementById('accRUT').innerText;
-            const bank = document.getElementById('accBank').innerText;
-            const type = document.getElementById('accType').innerText;
-            const number = document.getElementById('accNumber').innerText;
-            const email = document.getElementById('accEmail').innerText;
+            copyText(dataToCopy);
+        }
 
-            const textToCopy = `
-Datos para Transferencia - EasyCool Climatización
-Nombre: ${name}
-RUT: ${rut}
-Banco: ${bank}
-Tipo de Cuenta: ${type}
-N° de Cuenta: ${number}
-Email: ${email}
-            `.trim();
+        function copyText(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('¡Datos Copiados al Portapapeles!');
+                }).catch(err => {
+                    console.error('Error copy: ', err);
+                    fallbackCopyText(text);
+                });
+            } else {
+                fallbackCopyText(text);
+            }
+        }
 
-            // Usamos un textarea temporal para copiar
-            const textArea = document.createElement('textarea');
-            textArea.value = textToCopy;
+        function fallbackCopyText(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
             document.body.appendChild(textArea);
+            textArea.focus();
             textArea.select();
             try {
                 document.execCommand('copy');
-                copyMessage.classList.add('opacity-100');
-                setTimeout(() => {
-                    copyMessage.classList.remove('opacity-100');
-                }, 2000);
+                showToast('¡Datos Copiados al Portapapeles!');
             } catch (err) {
-                console.error('Error al intentar copiar', err);
+                console.error('Fallback error', err);
             }
             document.body.removeChild(textArea);
-        });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.innerText = message;
+            toast.className = "show";
+            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 2500);
+        }
     </script>
 
 </body>
