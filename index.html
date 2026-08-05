@@ -30,6 +30,19 @@
             --text-muted: #94a3b8;    
         }
 
+        /* --- FONDOS DINÁMICOS (NUEVO) --- */
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.4;
+            z-index: 0;
+            animation: floatOrb 15s infinite alternate ease-in-out;
+            pointer-events: none;
+        }
+        .orb-1 { width: 350px; height: 350px; background: var(--brand-blue-1); top: -10%; left: -10%; }
+        .orb-2 { width: 300px; height: 300px; background: var(--accent-green); bottom: -10%; right: -10%; animation-delay: -5s; }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -64,6 +77,7 @@
             animation: floatUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
             position: relative;
             overflow: hidden;
+            z-index: 1;
         }
 
         /* --- LOGO INTEGRADO --- */
@@ -74,17 +88,66 @@
             align-items: center;
         }
 
-        .logo-svg-container {
-            width: 100px;
-            height: 100px;
+        /* Nuevo Contenedor de Logo Redondo Adaptado */
+        .custom-logo-container {
+            width: 110px; 
+            height: 110px; 
+            background-color: #4a8bf5; /* Azul vibrante de fondo original */
+            border-radius: 50%; /* Circular */
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin-bottom: 12px;
-            filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3));
-            animation: breathe 6s ease-in-out infinite; 
+            box-shadow: 0 0 20px rgba(74, 139, 245, 0.4); /* Brillo adaptado al nuevo color */
+            animation: breathe 6s ease-in-out infinite;
         }
+
+        .custom-bars-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; 
+            gap: 6px; /* Escala ajustada de los 20px originales */
+        }
+
+        .custom-bar {
+            height: 14px; /* Escala ajustada de los 47px originales */
+            border-radius: 50px;
+            animation: slideInRight 0.8s ease-out backwards;
+        }
+
+        /* Dimensiones exactas calculadas en proporción al contenedor de 110px */
+        .custom-bar-top { width: 69px; background-color: #f7f9ff; animation-delay: 0.1s;}
+        .custom-bar-middle { width: 58px; background-color: #e6effe; animation-delay: 0.2s;}
+        .custom-bar-bottom { width: 47px; background-color: #d1e2fc; animation-delay: 0.3s;}
 
         .logo-text-group { font-family: 'Poppins', sans-serif; line-height: 1.1; }
         .brand-name { display: block; font-size: 32px; font-weight: 700; letter-spacing: 1px; color: white; text-transform: uppercase; }
         .brand-tagline { display: block; font-size: 14px; font-weight: 400; color: var(--brand-blue-2); letter-spacing: 2px; text-transform: uppercase; }
+
+        /* --- INDICADOR DE ESTADO (NUEVO) --- */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--accent-green);
+            margin-top: 15px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-green);
+            animation: pulse-dot 2s infinite;
+        }
 
         /* --- LEYENDA DE SERVICIOS --- */
         .services-text {
@@ -120,9 +183,26 @@
             transition: all 0.3s ease;
             cursor: pointer;
             user-select: none;
+            /* Animación en cascada */
+            animation: slideUpFade 0.6s ease backwards;
         }
 
-        .btn:active { transform: scale(0.96); background: rgba(255,255,255,0.1); }
+        /* Efecto Hover Premium */
+        .btn:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Retrasos para la cascada */
+        .btn:nth-child(1) { animation-delay: 0.1s; }
+        .btn:nth-child(2) { animation-delay: 0.2s; }
+        .btn:nth-child(3) { animation-delay: 0.3s; }
+        .btn:nth-child(4) { animation-delay: 0.4s; }
+        .btn:nth-child(5) { animation-delay: 0.5s; }
+        .btn:nth-child(6) { animation-delay: 0.6s; }
+
+        .btn:active { transform: scale(0.96) translateY(0); background: rgba(255,255,255,0.1); }
 
         .btn-icon { font-size: 20px; width: 32px; display: flex; justify-content: center; margin-right: 12px; }
         .btn-label { flex-grow: 1; text-align: left; }
@@ -133,7 +213,6 @@
         .btn-whatsapp { background: var(--accent-green); border: none; box-shadow: 0 0 25px rgba(34, 197, 94, 0.2); }
         .btn-whatsapp:active { background: #16a34a; }
         
-        /* Botón Guardar Contacto (Estilo Destacado pero elegante) */
         .btn-save { 
             background: linear-gradient(90deg, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0.1) 100%);
             border: 1px solid rgba(59, 130, 246, 0.3);
@@ -173,7 +252,6 @@
         .bank-label { display: block; font-size: 10px; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
         .bank-value { font-size: 14px; color: white; font-weight: 500; font-family: monospace; overflow-wrap: break-word;}
 
-        /* Botón de Copiar TODO */
         .copy-all-btn {
             width: calc(100% - 40px);
             margin: 10px 20px 0 20px;
@@ -198,7 +276,6 @@
             color: white;
         }
 
-        /* Footer */
         .footer { margin-top: 40px; font-size: 11px; color: var(--text-muted); opacity: 0.6; }
 
         /* Mensaje de Copiado (Toast) */
@@ -223,34 +300,82 @@
         }
         #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
 
+        /* --- BOTÓN FLOTANTE (FAB) NUEVO --- */
+        .fab-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            animation: floatUp 1s ease 1s backwards;
+        }
+        .fab-btn {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            box-shadow: 0 10px 25px rgba(34, 197, 94, 0.5);
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+        .fab-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 35px rgba(34, 197, 94, 0.6);
+        }
+        .fab-btn::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--accent-green);
+            animation: pulse-ring 2s infinite;
+        }
+
         /* --- ANIMACIONES --- */
         @keyframes floatUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUpFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
         @keyframes slideInRight { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
-        
-        .logo-bar { animation: slideInRight 0.8s ease-out backwards; }
-        .bar-1 { animation-delay: 0.1s; }
-        .bar-2 { animation-delay: 0.2s; }
-        .bar-3 { animation-delay: 0.3s; }
+        @keyframes pulse-dot { 0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.7); } 70% { box-shadow: 0 0 0 8px rgba(34,197,94,0); } 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); } }
+        @keyframes pulse-ring { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.5); opacity: 0; } }
+        @keyframes floatOrb { 0% { transform: translate(0, 0); } 100% { transform: translate(40px, -40px); } }
 
     </style>
 </head>
 <body>
 
+    <!-- FONDOS DINÁMICOS -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
     <div class="profile-card">
         
         <!-- HEADER -->
         <div class="brand-header">
-            <div class="logo-svg-container">
-                <svg width="100%" height="100%" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect class="logo-bar bar-1" y="5" width="50" height="10" rx="5" fill="#3B82F6" opacity="0.9"/>
-                    <rect class="logo-bar bar-2" x="5" y="20" width="45" height="10" rx="5" fill="#60A5FA" opacity="0.95"/>
-                    <rect class="logo-bar bar-3" x="10" y="35" width="40" height="10" rx="5" fill="#93C5FD" opacity="1"/>
-                </svg>
+            <!-- AQUÍ SE INTEGRA EL NUEVO LOGO CIRCULAR -->
+            <div class="custom-logo-container">
+                <div class="custom-bars-container">
+                    <div class="custom-bar custom-bar-top"></div>
+                    <div class="custom-bar custom-bar-middle"></div>
+                    <div class="custom-bar custom-bar-bottom"></div>
+                </div>
             </div>
+            
             <div class="logo-text-group">
                 <span class="brand-name">EASYCOOL</span>
                 <span class="brand-tagline">Climatización</span>
+            </div>
+            
+            <!-- INDICADOR DE ESTADO -->
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                Servicio Técnico 24/7
             </div>
         </div>
         
@@ -353,6 +478,13 @@
 
     </div>
 
+    <!-- BOTÓN FLOTANTE WHATSAPP (FAB) -->
+    <div class="fab-container">
+        <a href="https://wa.me/56944894101?text=Hola%20EasyCool!%20%E2%9D%84%EF%B8%8F%20Tengo%20una%20urgencia%20y%20necesito%20asistencia." class="fab-btn" target="_blank" title="Chat de Urgencias">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
     <script>
         // --- 1. LÓGICA DE GUARDAR CONTACTO (vCard) ---
         function downloadVCard() {
@@ -433,6 +565,7 @@ Correo: ventas@easycoolclimatizacion.com`;
                 document.execCommand('copy');
                 showToast('¡Datos Copiados al Portapapeles!');
             } catch (err) {
+                // Nota: Corregido el error de sintaxis que había aquí
                 console.error('Fallback error', err);
             }
             document.body.removeChild(textArea);
