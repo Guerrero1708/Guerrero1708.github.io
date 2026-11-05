@@ -1102,7 +1102,7 @@
                 <div class="flex items-center justify-between bg-white px-3 py-1.5 rounded-xl border border-slate-200">
                     <span class="font-bold text-slate-700">Margen Equipos/Insumos:</span>
                     <div class="flex items-center gap-1 font-bold">
-                        <input type="number" id="cfg-margin" value="15" step="1" class="w-16 p-1 text-right font-black border border-slate-300 rounded" onchange="updateGlobalParams()">
+                        <input type="number" id="cfg-margin" value="20" step="1" class="w-16 p-1 text-right font-black border border-slate-300 rounded" onchange="updateGlobalParams()">
                         <span class="text-slate-600 font-bold">%</span>
                     </div>
                 </div>
@@ -1253,7 +1253,7 @@ Correo: ventas@easycoolclimatizacion.com`;
         // --- 3. LÓGICA FINANCIERA Y DINÁMICA DEL CATÁLOGO ---
         const ADMIN_PIN = "1811";
         let laborCost = 120000;
-        let marginPercent = 15;
+        let marginPercent = 20;
 
         let materials = {
             soporte: 7500,
@@ -1620,7 +1620,7 @@ Correo: ventas@easycoolclimatizacion.com`;
             }
             materials = JSON.parse(JSON.stringify(defaultMaterials));
             laborCost = 120000;
-            marginPercent = 15;
+            marginPercent = 20;
             
             document.getElementById('mat-soporte').value = materials.soporte;
             document.getElementById('mat-canaleta100').value = materials.canaleta100;
