@@ -408,17 +408,13 @@
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
             animation: subtle-shimmer 4.5s infinite;
         }
-
+        
         /* --- CORRECCIÓN DE COLOR PARA INPUTS ADMINISTRATIVOS --- */
-        #auth-modal input,
-        #admin-modal input,
-        #admin-modal input[type="number"],
-        #admin-modal input[type="text"] {
-            color: #1e293b !important; /* Color oscuro para que se vean los números */
+        #auth-modal input, #admin-modal input {
+            color: #1e293b !important;
             background-color: #ffffff !important;
         }
-        #auth-modal input:focus,
-        #admin-modal input:focus {
+        #auth-modal input:focus, #admin-modal input:focus {
             outline: none !important;
             border-color: #3b82f6 !important;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
@@ -686,12 +682,13 @@
                             </span>
                         </div>
 
-                        <!-- Foto del Equipo -->
-                        <div class="w-full flex items-center justify-center pt-5 pb-2">
+                        <!-- Foto del Equipo en Alta Resolución con Respaldo Automático -->
+                        <div class="w-full flex items-center justify-center pt-5 pb-2 min-h-[140px]">
                             <img id="product-photo" 
-                                 src="https://images.unsplash.com/photo-1614633837777-6288339f4e5d?auto=format&fit=crop&w=720&q=80" 
-                                 alt="Split Muro y Unidad Exterior" 
-                                 class="h-32 sm:h-44 object-contain equipment-shadow max-w-[90%] transition-transform duration-300 hover:scale-105"
+                                 src="img/hisense.png" 
+                                 onerror="handleImageError(this)"
+                                 alt="Split Muro y Unidad Exterior en Alta Resolución" 
+                                 class="h-32 sm:h-44 object-contain equipment-shadow max-w-[92%] transition-all duration-300 hover:scale-105"
                                  loading="lazy">
                         </div>
 
@@ -1122,6 +1119,19 @@
                 </div>
             </div>
 
+            <!-- Editor de Imagen de la Marca en Admin -->
+            <div class="px-4 py-2 bg-blue-50/50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-image text-brand-blue"></i>
+                    <span class="font-bold text-slate-700">Ruta o URL Imagen HD:</span>
+                </div>
+                <input type="text" 
+                       id="admin-image-input" 
+                       class="w-full sm:w-80 p-1.5 text-xs font-mono border border-slate-300 rounded-lg focus:ring-1 focus:ring-brand-blue" 
+                       placeholder="Ej: img/hisense.png o https://..."
+                       onchange="updateBrandImage(this.value)">
+            </div>
+
             <div class="p-4 overflow-y-auto flex-grow" id="admin-equipment-editor">
                 <!-- Se llena dinámicamente con JS -->
             </div>
@@ -1253,13 +1263,21 @@ Correo: ventas@easycoolclimatizacion.com`;
             cordonMetrosCant: 3
         };
 
+        // Respaldo de imágenes de alta resolución en la nube por si aún no has subido las fotos a tu carpeta img/
+        const highResFallbacks = {
+            hisense: "https://images.unsplash.com/photo-1614633837777-6288339f4e5d?auto=format&fit=crop&w=800&q=85",
+            daikin: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=800&q=85",
+            tcl: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=85",
+            trane: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=85"
+        };
+
         const catalogData = {
             hisense: {
                 name: "Hisense",
                 fullName: "Hisense Hi-Vida Inverter",
                 series: "Split Muro Inverter • Serie Hi-Vida",
                 tagColor: "bg-[#00897B]",
-                image: "https://images.unsplash.com/photo-1614633837777-6288339f4e5d?auto=format&fit=crop&w=720&q=80",
+                image: "img/hisense.png",
                 items: [
                     { btu: "9.000 BTU", baseCost: 224900, sqm: "Hasta 18 m²", note: "Dormitorios o salas de estudio" },
                     { btu: "12.000 BTU", baseCost: 245900, sqm: "Hasta 24 m²", note: "Dormitorio principal o estar mediano" },
@@ -1272,7 +1290,7 @@ Correo: ventas@easycoolclimatizacion.com`;
                 fullName: "Daikin Inverter (Japón)",
                 series: "Split Muro Inverter • Calidad Japonesa Premium",
                 tagColor: "bg-[#0097D8]",
-                image: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=720&q=80",
+                image: "img/daikin.png",
                 items: [
                     { btu: "9.000 BTU", baseCost: 231900, sqm: "Hasta 18 m²", note: "Ultra silencioso para dormitorios" },
                     { btu: "12.000 BTU", baseCost: 239990, sqm: "Hasta 24 m²", note: "Dormitorio principal / home office" },
@@ -1285,7 +1303,7 @@ Correo: ventas@easycoolclimatizacion.com`;
                 fullName: "TCL Smart Inverter",
                 series: "Split Muro Inverter • Conectividad Smart WiFi",
                 tagColor: "bg-[#D92525]",
-                image: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=720&q=80",
+                image: "img/tcl.png",
                 items: [
                     { btu: "12.000 BTU", baseCost: 237900, sqm: "Hasta 24 m²", note: "Dormitorios amplios y salas de estar" },
                     { btu: "18.000 BTU", baseCost: 316990, sqm: "Hasta 36 m²", note: "Living o espacios comunes integrados" },
@@ -1297,7 +1315,7 @@ Correo: ventas@easycoolclimatizacion.com`;
                 fullName: "Trane Heavy Duty Inverter",
                 series: "Split Muro Inverter • Resistencia Heavy Duty",
                 tagColor: "bg-[#EB4C26]",
-                image: "https://images.unsplash.com/photo-1614633837777-6288339f4e5d?auto=format&fit=crop&w=720&q=80",
+                image: "img/trane.png",
                 items: [
                     { btu: "12.000 BTU", baseCost: 240900, sqm: "Hasta 24 m²", note: "Excelente durabilidad en uso continuo" },
                     { btu: "18.000 BTU", baseCost: 362900, sqm: "Hasta 36 m²", note: "Robusto para oficinas y livings" },
@@ -1419,7 +1437,6 @@ Correo: ventas@easycoolclimatizacion.com`;
             document.getElementById('btn-quote-text').innerText = `Cotizar ${data.name} ${item.btu} con José`;
         }
 
-        // --- 4. ACCESO ADMINISTRATIVO SECRETO (5 TOQUES) ---
         let logoClickCount = 0;
         let logoClickResetTimeout = null;
 
@@ -1432,6 +1449,14 @@ Correo: ventas@easycoolclimatizacion.com`;
                 logoClickCount = 0;
                 clearTimeout(logoClickResetTimeout);
                 openAuthModal();
+            }
+        }
+
+        // Función de seguridad en caso de que la imagen local no exista aún en GitHub
+        function handleImageError(imgElement) {
+            const fallback = highResFallbacks[currentBrand];
+            if (fallback && imgElement.src !== fallback) {
+                imgElement.src = fallback;
             }
         }
 
@@ -1502,7 +1527,20 @@ Correo: ventas@easycoolclimatizacion.com`;
                     }
                 }
             });
+
+            const imgInput = document.getElementById('admin-image-input');
+            if (imgInput && catalogData[brandKey]) {
+                imgInput.value = catalogData[brandKey].image;
+            }
+
             renderAdminEquipmentEditor();
+        }
+
+        function updateBrandImage(newPath) {
+            if (catalogData[adminSelectedBrand]) {
+                catalogData[adminSelectedBrand].image = newPath.trim();
+                renderBrandView();
+            }
         }
 
         function renderAdminEquipmentEditor() {
