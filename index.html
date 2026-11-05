@@ -5,79 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EasyCool Climatización | Catálogo y Servicios</title>
 
-    <!-- Fuentes: Inter, Montserrat y Poppins -->
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fuentes: Inter (Interfaz), Poppins y Montserrat (Marca) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <!-- Tailwind CSS (Usado de forma encapsulada para el catálogo interactivo) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'montserrat': ['Montserrat', 'sans-serif'],
-                        'inter': ['Inter', 'sans-serif']
-                    },
-                    colors: {
-                        brand: {
-                            blue: '#4981F3',
-                            dark: '#212B3B',
-                            navy: '#152136',
-                            navyDark: '#0E1726',
-                            gray: '#9FA5B1',
-                            bar1: '#F1F6FF',
-                            bar2: '#E4EEFF',
-                            bar3: '#D2E3FF'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&family=Montserrat:wght@400;500;800;900&display=swap" rel="stylesheet">
 
     <!-- Iconos FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- SISTEMA DE DISEÑO (DARK PREMIUM LINKTREE) --- */
+        /* --- SISTEMA DE DISEÑO (DARK PREMIUM) --- */
         :root {
-            --bg-deep: #0f172a;       /* Azul Noche Profundo */
-            --glass-panel: rgba(30, 41, 59, 0.95);
+            --bg-deep: #0f172a;       
+            --glass-panel: rgba(30, 41, 59, 0.95); 
             --glass-border: rgba(255, 255, 255, 0.1);
-
-            /* Colores de Marca */
             --brand-blue-1: #3B82F6;
             --brand-blue-2: #60A5FA;
             --brand-blue-3: #93C5FD;
-
-            --accent-green: #22c55e;  /* WhatsApp Venta */
+            --accent-green: #22c55e;  
             --text-main: #f8fafc;     
             --text-muted: #94a3b8;    
         }
 
-        /* --- FONDOS DINÁMICOS --- */
-        .bg-orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.4;
-            z-index: 0;
-            animation: floatOrb 15s infinite alternate ease-in-out;
-            pointer-events: none;
-        }
-        .orb-1 { width: 350px; height: 350px; background: var(--brand-blue-1); top: -10%; left: -10%; }
-        .orb-2 { width: 300px; height: 300px; background: var(--accent-green); bottom: -10%; right: -10%; animation-delay: -5s; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
+        body.linktree-mode {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-deep);
             color: var(--text-main);
@@ -87,1516 +42,553 @@
             align-items: center;
             background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, var(--bg-deep) 80%);
             padding: 20px;
+            overflow-x: hidden;
         }
 
-        /* --- TARJETA PRINCIPAL LINKTREE --- */
+        /* Fondos Dinámicos */
+        .bg-orb { position: fixed; border-radius: 50%; filter: blur(90px); opacity: 0.4; z-index: 0; animation: floatOrb 15s infinite alternate ease-in-out; pointer-events: none; }
+        .orb-1 { width: 350px; height: 350px; background: var(--brand-blue-1); top: -10%; left: -10%; }
+        .orb-2 { width: 300px; height: 300px; background: var(--accent-green); bottom: -10%; right: -10%; animation-delay: -5s; }
+
+        /* Tarjeta Linktree */
         .profile-card {
-            width: 100%;
-            max-width: 440px;
-            background: var(--glass-panel);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 32px;
-            padding: 36px 22px;
-            text-align: center;
-            box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.6);
-            animation: floatUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
+            width: 100%; max-width: 420px; background: var(--glass-panel); backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border); border-radius: 32px; padding: 40px 24px;
+            text-align: center; box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.6);
+            animation: floatUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); position: relative; z-index: 1;
         }
 
-        /* --- LOGO INTEGRADO --- */
-        .brand-header {
-            margin-bottom: 18px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .custom-logo-container {
-            width: 100px; 
-            height: 100px; 
-            background-color: #4981F3;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 12px;
-            box-shadow: 0 0 25px rgba(73, 129, 243, 0.45);
-            animation: breathe 6s ease-in-out infinite;
-        }
-
-        .custom-bars-container {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end; 
-            gap: 6px;
-        }
-
-        .custom-bar {
-            height: 13px;
-            border-radius: 50px;
-            animation: slideInRight 0.8s ease-out backwards;
-        }
-
-        .custom-bar-top { width: 62px; background-color: #F1F6FF; animation-delay: 0.1s;}
-        .custom-bar-middle { width: 50px; background-color: #E4EEFF; animation-delay: 0.2s;}
-        .custom-bar-bottom { width: 38px; background-color: #D2E3FF; animation-delay: 0.3s;}
-
-        .logo-text-group { font-family: 'Montserrat', sans-serif; line-height: 1.1; }
-        .brand-name { display: block; font-size: 30px; font-weight: 900; letter-spacing: 0.5px; color: white; text-transform: uppercase; }
-        .brand-tagline { display: block; font-size: 13.5px; font-weight: 500; color: #93c5fd; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
-
-        /* --- INDICADOR DE ESTADO --- */
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(34, 197, 94, 0.12);
-            border: 1px solid rgba(34, 197, 94, 0.35);
-            padding: 6px 14px;
-            border-radius: 50px;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--accent-green);
-            margin-top: 14px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-green);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-green);
-            animation: pulse-dot 2s infinite;
-        }
-
-        /* --- LEYENDA DE SERVICIOS --- */
-        .services-text {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 22px;
-            line-height: 1.5;
-            padding: 0 10px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            padding-top: 14px;
-        }
-        .services-text span {
-            color: var(--brand-blue-3);
-            font-weight: 600;
-        }
-
-        /* --- BOTONES DEL LINKTREE --- */
-        .links-wrapper { display: flex; flex-direction: column; gap: 12px; }
-
+        /* Botones Linktree */
+        .links-wrapper { display: flex; flex-direction: column; gap: 14px; margin-top: 25px;}
         .btn {
-            position: relative;
-            display: flex;
-            align-items: center;
-            padding: 16px 18px;
-            border-radius: 16px;
-            text-decoration: none;
-            color: white;
-            font-weight: 600;
-            font-size: 14.5px;
-            border: 1px solid var(--glass-border);
-            background: linear-gradient(90deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
-            transition: all 0.25s ease;
-            cursor: pointer;
-            user-select: none;
+            position: relative; display: flex; align-items: center; padding: 18px 20px;
+            border-radius: 16px; text-decoration: none; color: white; font-weight: 600; font-size: 15px;
+            border: 1px solid var(--glass-border); background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
+            transition: all 0.3s ease; cursor: pointer; user-select: none;
         }
-
-        .btn:hover {
-            border-color: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-            transform: translateY(-2px);
-        }
-
-        .btn:active { transform: scale(0.97); }
-
-        .btn-icon { font-size: 19px; width: 30px; display: flex; justify-content: center; margin-right: 12px; }
+        .btn:hover { border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); transform: translateY(-2px); }
+        .btn-icon { font-size: 20px; width: 32px; display: flex; justify-content: center; margin-right: 12px; }
         .btn-label { flex-grow: 1; text-align: left; }
-        .btn-arrow { opacity: 0.5; font-size: 12px; transition: 0.3s; }
-        .btn:hover .btn-arrow { opacity: 1; transform: translateX(4px); }
+        
+        .btn-catalog { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); border: 1px solid #60a5fa; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3); }
+        .btn-catalog:hover { box-shadow: 0 15px 25px rgba(59, 130, 246, 0.4); transform: translateY(-3px); }
+        .btn-whatsapp { background: var(--accent-green); border: none; }
+        
+        /* Logo Circular EasyCool */
+        .brand-header { display: flex; flex-direction: column; align-items: center; }
+        .custom-logo-container {
+            width: 110px; height: 110px; background-color: #4981F3; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; margin-bottom: 12px;
+            box-shadow: 0 5px 20px rgba(73, 129, 243, 0.4); animation: breathe 6s ease-in-out infinite; cursor: pointer;
+        }
+        .custom-bars-container { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; padding-right: 8px;}
+        .custom-bar { height: 12px; border-radius: 50px; }
+        .custom-bar-top { width: 62px; background-color: #F1F6FF; }
+        .custom-bar-middle { width: 50px; background-color: #E4EEFF; }
+        .custom-bar-bottom { width: 38px; background-color: #D2E3FF; }
 
-        /* Botón Protagónico de Catálogo */
-        .btn-catalog {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
-            border: 1px solid rgba(147, 197, 253, 0.5);
-            box-shadow: 0 0 25px rgba(59, 130, 246, 0.45);
-            overflow: hidden;
-        }
-        .btn-catalog:hover {
-            box-shadow: 0 0 35px rgba(59, 130, 246, 0.7);
-            border-color: #bfdbfe;
-        }
-
-        /* Botones Colores Específicos */
-        .btn-whatsapp { background: var(--accent-green); border: none; box-shadow: 0 0 25px rgba(34, 197, 94, 0.25); }
-        .btn-whatsapp:active { background: #16a34a; }
-
-        .btn-save { 
-            background: linear-gradient(90deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 100%);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            color: var(--brand-blue-3);
-        }
-
-        /* Sección Banco Desplegable */
-        .bank-details {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.35s ease;
-            background: rgba(0, 0, 0, 0.45);
-            border-radius: 16px;
-            margin-top: 2px;
-        }
-        .bank-details.active {
-            max-height: 800px;
-            margin-top: 12px;
-            border: 1px solid var(--glass-border);
-            padding-bottom: 16px;
-        }
-        .bank-content {
-            padding: 16px 18px 8px 18px;
-            text-align: left;
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-        .bank-row { margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 6px; }
-        .bank-row:last-child { border-bottom: none; margin-bottom: 0; }
-        .bank-label { display: block; font-size: 10px; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
-        .bank-value { font-size: 13.5px; color: white; font-weight: 500; font-family: monospace; overflow-wrap: break-word; }
-
-        .copy-all-btn {
-            width: calc(100% - 36px);
-            margin: 8px 18px 0 18px;
-            background: rgba(59, 130, 246, 0.2);
-            border: 1px solid var(--brand-blue-1);
-            color: var(--brand-blue-3);
-            padding: 11px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 12.5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.2s;
-        }
-        .copy-all-btn:active {
-            transform: scale(0.98);
-            background: var(--brand-blue-1);
-            color: white;
-        }
-
-        .footer { margin-top: 30px; font-size: 11px; color: var(--text-muted); opacity: 0.7; }
-
-        /* Toast de confirmación */
-        #toast {
-            visibility: hidden;
-            min-width: 250px;
-            background-color: var(--accent-green);
-            color: #052e16;
-            font-weight: 700;
-            text-align: center;
-            border-radius: 50px;
-            padding: 12px 24px;
-            position: fixed;
-            z-index: 99999;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
-            opacity: 0;
-            transition: opacity 0.3s, bottom 0.3s; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-        #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
-
-        /* Botón Flotante WhatsApp */
-        .fab-container {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 1000;
-        }
-        .fab-btn {
-            width: 58px;
-            height: 58px;
-            background: var(--accent-green);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 27px;
-            box-shadow: 0 10px 25px rgba(34, 197, 94, 0.5);
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-        }
-        .fab-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 15px 35px rgba(34, 197, 94, 0.65);
-        }
-        .fab-btn::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 2px solid var(--accent-green);
-            animation: pulse-ring 2s infinite;
-        }
-
-        /* --- ESTILOS ESPECÍFICOS DEL MODAL CATÁLOGO --- */
+        /* Catálogo Modal (Pantalla Completa) */
         #catalog-modal {
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #f8fafc; z-index: 100; overflow-y: auto;
+            transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            font-family: 'Inter', sans-serif; display: block;
         }
-        #catalog-modal.hidden {
-            display: none;
-            opacity: 0;
-            pointer-events: none;
+        #catalog-modal.active { transform: translateY(0); }
+
+        /* Estilos del Catálogo Interno */
+        .tab-brand { transition: all 0.3s ease; }
+        .tab-brand.active { background-color: #212B3B; color: white; border-color: #212B3B; box-shadow: 0 4px 12px rgba(33,43,59,0.2); }
+        .tab-capacity { transition: all 0.2s ease; }
+        .tab-capacity.active { background-color: #4981F3; color: white; border-color: #4981F3; }
+        
+        .showroom-container {
+            background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f1f5f9 100%);
+            border-radius: 24px; padding: 20px; position: relative;
+        }
+        .ac-image {
+            width: 100%; max-width: 320px; height: 180px; object-fit: contain;
+            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.15)); transition: opacity 0.3s ease;
+        }
+        
+        /* CORRECCIÓN DE COLORES PARA INPUTS EN PANEL ADMINISTRATIVO */
+        #admin-panel input, 
+        #admin-panel input[type="number"], 
+        #admin-panel input[type="text"],
+        #admin-pin-modal input {
+            color: #1e293b !important;            /* Texto oscuro nítido */
+            background-color: #ffffff !important;  /* Fondo blanco limpio */
+            font-weight: 700 !important;          /* Números en negrita */
+            font-size: 14px !important;
+            border: 1px solid #cbd5e1 !important;  
+        }
+        #admin-panel input:focus, #admin-pin-modal input:focus {
+            border-color: #3b82f6 !important;
+            outline: none !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
         }
 
-        .brand-pill.active {
-            border-color: #4981F3;
-            background: linear-gradient(180deg, #F1F6FF 0%, #E4EEFF 100%);
-            color: #212B3B;
-            box-shadow: 0 4px 12px rgba(73, 129, 243, 0.22);
-            transform: translateY(-1px);
-        }
-
-        .btu-chip.active {
-            background-color: #212B3B;
-            color: #ffffff;
-            border-color: #212B3B;
-            box-shadow: 0 4px 12px rgba(33, 43, 59, 0.25);
-            transform: scale(1.02);
-        }
-        .btu-chip.active .btu-sqm {
-            color: #93c5fd;
-        }
-
-        .equipment-shadow {
-            filter: drop-shadow(0 18px 24px rgba(15, 23, 42, 0.18)) drop-shadow(0 4px 6px rgba(15, 23, 42, 0.08));
-        }
-        .showroom-podium {
-            background: radial-gradient(ellipse at 50% 80%, rgba(73, 129, 243, 0.15) 0%, rgba(241, 246, 255, 0.6) 50%, transparent 75%);
-        }
-
-        .fade-swap {
-            animation: fadeInSwap 0.35s ease-out;
-        }
-        @keyframes fadeInSwap {
-            from { opacity: 0.2; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes subtle-shimmer {
-            0% { transform: translateX(-100%); }
-            60%, 100% { transform: translateX(200%); }
-        }
-        .shimmer-btn::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; bottom: 0; width: 45%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-            animation: subtle-shimmer 4.5s infinite;
-        }
-
-        /* Animaciones generales */
-        @keyframes floatUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        /* Animaciones */
+        @keyframes floatUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
-        @keyframes slideInRight { from { opacity: 0; transform: translateX(-18px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes pulse-dot { 0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.7); } 70% { box-shadow: 0 0 0 8px rgba(34,197,94,0); } 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); } }
-        @keyframes pulse-ring { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.5); opacity: 0; } }
         @keyframes floatOrb { 0% { transform: translate(0, 0); } 100% { transform: translate(40px, -40px); } }
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
-<body>
+<body class="linktree-mode">
 
-    <!-- FONDOS DINÁMICOS -->
+    <!-- FONDOS DINÁMICOS LINKTREE -->
     <div class="bg-orb orb-1"></div>
     <div class="bg-orb orb-2"></div>
 
     <!-- TARJETA PRINCIPAL LINKTREE -->
     <div class="profile-card">
-
-        <!-- HEADER -->
+        <!-- HEADER / LOGO (CON ACCESO SECRETO DE 5 TOQUES) -->
         <div class="brand-header">
-            <!-- LOGO CIRCULAR OFICIAL EASYCOOL -->
-            <div class="custom-logo-container">
+            <div class="custom-logo-container" id="secret-trigger">
                 <div class="custom-bars-container">
                     <div class="custom-bar custom-bar-top"></div>
                     <div class="custom-bar custom-bar-middle"></div>
                     <div class="custom-bar custom-bar-bottom"></div>
                 </div>
             </div>
-
-            <div class="logo-text-group">
-                <span class="brand-name">EASYCOOL</span>
-                <span class="brand-tagline">Climatización</span>
+            <div style="font-family: 'Montserrat', sans-serif; line-height: 1;">
+                <span style="display: block; font-size: 32px; font-weight: 900; color: white; letter-spacing: -0.02em;">EASYCOOL</span>
+                <span style="display: block; font-size: 14px; font-weight: 500; color: var(--brand-blue-2); letter-spacing: 1px;">Climatización</span>
             </div>
-
-            <!-- INDICADOR DE ESTADO -->
-            <div class="status-badge">
-                <span class="status-dot"></span>
-                Servicio Técnico & Instalación
-            </div>
-        </div>
-
-        <!-- LEYENDA DE SERVICIOS -->
-        <div class="services-text">
-            Venta • Instalación • Mantención<br>
-            <span>Garantía de 3 Años en Equipos</span>
         </div>
 
         <div class="links-wrapper">
-
-            <!-- 1. BOTÓN PRINCIPAL PROTAGÓNICO: ABRIR EL CATÁLOGO COMPLETO -->
-            <button onclick="openCatalogModal()" class="btn btn-catalog">
-                <div class="btn-icon" style="color: #ffffff;"><i class="fas fa-snowflake"></i></div>
+            <!-- 1. BOTÓN CATÁLOGO (ABRE MODAL) -->
+            <button onclick="openCatalog()" class="btn btn-catalog">
+                <div class="btn-icon"><i class="fas fa-snowflake"></i></div>
                 <div class="btn-label">
-                    <span style="font-size: 11px; text-transform: uppercase; color: #dbeafe; font-weight: 700; letter-spacing: 0.5px; display: block;">Equipos Llave en Mano</span>
-                    <strong style="font-size: 15px; color: #ffffff;">Ver Catálogo y Precios</strong>
+                    <strong style="display: block; font-size: 15px;">Ver Catálogo y Precios</strong>
+                    <span style="font-size: 11px; font-weight: 400; opacity: 0.9;">Equipos Llave en Mano</span>
                 </div>
-                <i class="fas fa-arrow-right btn-arrow" style="opacity: 1; color: #ffffff;"></i>
+                <i class="fas fa-arrow-right btn-arrow"></i>
             </button>
 
-            <!-- 2. WHATSAPP DIRECTO DE ATENCIÓN (JOSÉ GUERRERO) -->
-            <a href="https://wa.me/56957776174?text=Hola%20Jos%C3%A9,%20vengo%20de%20la%20web%20y%20necesito%20cotizar%20un%20servicio%20de%20climatizaci%C3%B3n." class="btn btn-whatsapp" target="_blank">
+            <!-- 2. WHATSAPP -->
+            <a href="https://wa.me/56957776174?text=Hola%20José!%20%E2%9D%84%EF%B8%8F%20Vengo%20de%20su%20web%20y%20necesito%20cotizar." class="btn btn-whatsapp" target="_blank">
                 <div class="btn-icon"><i class="fab fa-whatsapp"></i></div>
-                <div class="btn-label"><strong>Cotizar por WhatsApp</strong></div>
-                <i class="fas fa-chevron-right btn-arrow"></i>
+                <div class="btn-label"><strong>Cotizar Ahora</strong></div>
             </a>
 
-            <!-- 3. GUARDAR CONTACTO -->
-            <button onclick="downloadVCard()" class="btn btn-save">
-                <div class="btn-icon"><i class="fas fa-user-plus"></i></div>
-                <div class="btn-label">Guardar Contacto</div>
-                <i class="fas fa-download btn-arrow"></i>
-            </button>
-
-            <!-- 4. INSTAGRAM -->
-            <a href="https://www.instagram.com/easycool_climatizacion?igsh=MTkycXJzZXUxdDY3Mw==" class="btn" target="_blank">
+            <!-- 3. INSTAGRAM -->
+            <a href="https://www.instagram.com/easycool_climatizacion" class="btn" target="_blank">
                 <div class="btn-icon" style="color: #ec4899;"><i class="fab fa-instagram"></i></div>
                 <div class="btn-label">Ver Nuestros Trabajos</div>
-                <i class="fas fa-chevron-right btn-arrow"></i>
             </a>
-
-            <!-- 5. GOOGLE REVIEWS -->
-            <a href="https://g.page/r/Ccgzu2uxiaSiEBI/review" class="btn" target="_blank">
-                <div class="btn-icon" style="color: #4285F4;"><i class="fab fa-google"></i></div>
-                <div class="btn-label">Nuestras Opiniones</div>
-                <i class="fas fa-star btn-arrow" style="color: #fbbf24; opacity: 1;"></i>
-            </a>
-
-            <!-- 6. LLAMADA DIRECTA -->
-            <a href="tel:+56957776174" class="btn">
-                <div class="btn-icon"><i class="fas fa-phone-alt"></i></div>
-                <div class="btn-label">Llamar a Ejecutivo</div>
-                <i class="fas fa-phone btn-arrow"></i>
-            </a>
-
-            <!-- 7. DATOS BANCARIOS (DESPLEGABLE) -->
-            <div id="btn-banco" class="btn" style="opacity: 0.9; border-style: dashed;" onclick="toggleBank()">
+            
+            <!-- 4. DATOS BANCARIOS -->
+            <button class="btn" onclick="alert('Datos Bancarios:\n\nTitular: Easycool Climatizacion\nRUT: 77.448.234-2\nBanco BCI / Cta Corriente\nNº: 97512508\nCorreo: ventas@easycoolclimatizacion.com');">
                 <div class="btn-icon"><i class="fas fa-university"></i></div>
                 <div class="btn-label">Datos Transferencia</div>
-                <i id="bank-arrow" class="fas fa-chevron-down btn-arrow" style="opacity: 1;"></i>
-            </div>
-
-            <!-- CONTENEDOR DE DATOS DE TRANSFERENCIA -->
-            <div id="bank-info" class="bank-details">
-                <div class="bank-content">
-                    <div class="bank-row">
-                        <span class="bank-label">Titular</span>
-                        <div class="bank-value">Easycool Climatizacion</div>
-                    </div>
-                    <div class="bank-row">
-                        <span class="bank-label">RUT</span>
-                        <div class="bank-value">77.448.234-2</div>
-                    </div>
-                    <div class="bank-row">
-                        <span class="bank-label">Banco / Tipo</span>
-                        <div class="bank-value">Banco Bci / Cta Corriente</div>
-                    </div>
-                    <div class="bank-row">
-                        <span class="bank-label">Nº Cuenta</span>
-                        <div class="bank-value">97512508</div>
-                    </div>
-                    <div class="bank-row">
-                        <span class="bank-label">Correo</span>
-                        <div class="bank-value" style="font-size: 11px;">ventas@easycoolclimatizacion.com</div>
-                    </div>
-                </div>
-
-                <!-- BOTÓN COPIAR TODO -->
-                <button class="copy-all-btn" onclick="copyFullBankData()">
-                    <i class="fas fa-copy"></i> COPIAR TODOS LOS DATOS
-                </button>
-            </div>
-
+            </button>
         </div>
 
-        <div class="footer">
-            <p>© 2026 EasyCool Climatización • RUT 77.448.234-2</p>
-            <p>Santiago de Chile 🇨🇱</p>
+        <div style="margin-top: 30px; font-size: 11px; color: var(--text-muted);">
+            <p>© 2026 EasyCool Climatización</p>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         MODAL: CATÁLOGO COMPLETO (PANTALLA COMPLETA) 
+         ========================================== -->
+    <div id="catalog-modal">
+        
+        <!-- Navbar Catálogo -->
+        <div class="bg-white sticky top-0 z-50 shadow-sm px-4 py-3 flex items-center justify-between">
+            <button onclick="closeCatalog()" class="text-slate-500 text-xl w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="text-center font-montserrat">
+                <span class="block font-black text-slate-800 text-lg leading-none tracking-tight">EASYCOOL</span>
+                <span class="block text-[10px] text-blue-500 font-bold uppercase tracking-wider">Catálogo Digital</span>
+            </div>
+            <div class="w-10"></div>
         </div>
 
-        <!-- Notificación Toast -->
-        <div id="toast"><i class="fas fa-check-circle"></i> ¡Datos Copiados!</div>
-
-    </div>
-
-    <!-- BOTÓN FLOTANTE WHATSAPP (FAB) -->
-    <div class="fab-container">
-        <a href="https://wa.me/56957776174?text=Hola%20Jos%C3%A9!%20%E2%9D%84%EF%B8%8F%20Vengo%20de%20la%20web%20y%20necesito%20asistencia." class="fab-btn" target="_blank" title="Chat Comercial">
-            <i class="fab fa-whatsapp"></i>
-        </a>
-    </div>
-
-    <!-- ======================================================== -->
-    <!-- MODAL COMPLETO DEL CATÁLOGO & PLANES DE MANTENIMIENTO -->
-    <!-- ======================================================== -->
-    <div id="catalog-modal" class="fixed inset-0 z-50 bg-slate-900/90 backdrop-blur-md hidden overflow-y-auto">
-        <div class="min-h-screen bg-slate-50 font-montserrat text-brand-dark flex flex-col">
-
-            <!-- Header Catálogo -->
-            <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
-                <div class="max-w-4xl mx-auto px-3.5 sm:px-6 py-2.5 flex justify-between items-center">
-                    
-                    <!-- Logo EASYCOOL con acceso secreto (5 toques en el círculo azul abre clave 1811) -->
-                    <div class="flex flex-row items-center font-montserrat select-none gap-2.5">
-                        <div id="secret-admin-trigger" onclick="handleSecretLogoClick()" class="relative w-[44px] h-[44px] sm:w-[50px] sm:h-[50px] bg-brand-blue rounded-full flex flex-col justify-center items-end pr-[8px] sm:pr-[10px] gap-[3px] shadow-sm flex-shrink-0 cursor-pointer active:scale-95 transition-transform" title="Toque 5 veces para administración">
-                            <div class="h-[6px] w-[27px] sm:w-[32px] bg-brand-bar1 rounded-full pointer-events-none"></div>
-                            <div class="h-[6px] w-[21px] sm:w-[25px] bg-brand-bar2 rounded-full pointer-events-none"></div>
-                            <div class="h-[6px] w-[15px] sm:w-[18px] bg-brand-bar3 rounded-full pointer-events-none"></div>
-                        </div>
-                        <div class="flex flex-col items-start leading-none pointer-events-none">
-                            <h2 class="text-brand-dark font-[900] text-[17px] sm:text-[20px] tracking-tight">
-                                EASYCOOL
-                            </h2>
-                            <p class="text-brand-gray font-[600] text-[10px] sm:text-[11px] tracking-wide mt-0.5">
-                                Catálogo Oficial
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Botón Cerrar Modal Catálogo -->
-                    <button onclick="closeCatalogModal()" class="inline-flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs transition-colors">
-                        <i class="fas fa-times"></i>
-                        <span>Cerrar</span>
-                    </button>
-                </div>
-            </header>
-
-            <!-- Banner Garantía 3 Años Equipos EasyCool -->
-            <div class="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 py-2 px-3 text-center shadow-inner">
-                <p class="text-brand-dark font-black text-[11px] sm:text-xs tracking-tight flex items-center justify-center gap-1 flex-wrap">
-                    <span>★</span>
-                    <span>3 AÑOS DE GARANTÍA EN EQUIPOS SUMINISTRADOS POR EASYCOOL</span>
-                    <span>★</span>
-                </p>
-                <p class="text-[9.5px] text-amber-950 font-semibold tracking-normal mt-0.5 opacity-90">
-                    *Instalaciones con equipos provistos por el cliente cuentan con 1 año de garantía por fuga.
-                </p>
+        <div class="max-w-md mx-auto p-4 pb-24">
+            
+            <!-- Selector de Marcas -->
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">1. Selecciona la Marca</p>
+            <div class="grid grid-cols-4 gap-2 mb-6">
+                <button class="tab-brand active py-2 rounded-xl border border-slate-200 text-sm font-bold text-slate-600" onclick="selectBrand('hisense', this)">Hisense</button>
+                <button class="tab-brand py-2 rounded-xl border border-slate-200 text-sm font-bold text-slate-600" onclick="selectBrand('daikin', this)">Daikin</button>
+                <button class="tab-brand py-2 rounded-xl border border-slate-200 text-sm font-bold text-slate-600" onclick="selectBrand('tcl', this)">TCL</button>
+                <button class="tab-brand py-2 rounded-xl border border-slate-200 text-sm font-bold text-slate-600" onclick="selectBrand('trane', this)">Trane</button>
             </div>
 
-            <!-- CONTENIDO DEL CATÁLOGO: EQUIPOS LLAVE EN MANO -->
-            <main class="max-w-4xl mx-auto px-3 sm:px-6 pt-3 pb-8 w-full flex-grow">
+            <!-- Showroom 3D -->
+            <div class="showroom-container mb-6 flex flex-col items-center justify-center">
+                <div class="absolute top-4 left-4 bg-white/80 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-slate-700 shadow-sm border border-slate-100 flex items-center gap-1">
+                    <i class="fas fa-leaf text-green-500"></i> Gas R32
+                </div>
                 
-                <!-- Selector de Marca (Tabs Horizontales) -->
-                <div class="mb-3">
-                    <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5 px-1 flex items-center justify-between">
-                        <span>Selecciona la Marca:</span>
-                        <span class="text-[10px] text-brand-blue font-semibold">Tecnología Inverter • Gas R32</span>
-                    </p>
-                    <div class="grid grid-cols-4 gap-1.5 sm:gap-2">
-                        <button onclick="selectBrand('hisense')" id="brand-btn-hisense" class="brand-pill active py-2 sm:py-2.5 px-2 rounded-xl border border-slate-200 text-center font-black text-xs sm:text-sm">
-                            HISENSE
-                        </button>
-                        <button onclick="selectBrand('daikin')" id="brand-btn-daikin" class="brand-pill py-2 sm:py-2.5 px-2 rounded-xl border border-slate-200 text-center font-black text-xs sm:text-sm">
-                            DAIKIN
-                        </button>
-                        <button onclick="selectBrand('tcl')" id="brand-btn-tcl" class="brand-pill py-2 sm:py-2.5 px-2 rounded-xl border border-slate-200 text-center font-black text-xs sm:text-sm">
-                            TCL
-                        </button>
-                        <button onclick="selectBrand('trane')" id="brand-btn-trane" class="brand-pill py-2 sm:py-2.5 px-2 rounded-xl border border-slate-200 text-center font-black text-xs sm:text-sm">
-                            TRANE
-                        </button>
-                    </div>
-                </div>
-
-                <!-- TARJETA PRINCIPAL DEL PRODUCTO (SHOWROOM 3D) -->
-                <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-4 sm:p-5 relative overflow-hidden">
-                    
-                    <!-- Encabezado de Tarjeta -->
-                    <div class="flex items-center justify-between pb-3 border-b border-slate-100 gap-2">
-                        <div>
-                            <span class="text-[10px] font-black uppercase text-brand-blue tracking-wider block" id="brand-series-subtitle">Split Muro Inverter • Serie Hi-Vida</span>
-                            <h3 id="brand-title" class="text-xl sm:text-2xl font-[900] text-brand-dark leading-tight">
-                                Hisense Hi-Vida Inverter
-                            </h3>
-                        </div>
-                        <div class="text-right flex-shrink-0">
-                            <span class="inline-flex items-center gap-1 text-[10px] sm:text-xs font-black text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full">
-                                <i class="fas fa-leaf text-emerald-600"></i>
-                                Gas R32 Ecológico
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- SHOWROOM FOTOGRÁFICO REALISTA -->
-                    <div class="relative py-3 px-2 sm:px-4 showroom-podium rounded-2xl my-3 border border-slate-100 flex flex-col items-center justify-center min-h-[175px]">
-                        
-                        <div class="absolute top-2 left-2 flex gap-1.5 z-10">
-                            <span class="text-[9.5px] font-black uppercase tracking-wider bg-white/90 backdrop-blur-md text-brand-dark px-2 py-0.5 rounded-md border border-slate-200 shadow-sm flex items-center gap-1">
-                                <i class="fas fa-check text-brand-blue"></i>
-                                Split + Exterior
-                            </span>
-                            <span class="text-[9.5px] font-black uppercase tracking-wider bg-blue-600/90 text-white px-2 py-0.5 rounded-md shadow-sm flex items-center gap-1">
-                                <i class="fas fa-wifi"></i>
-                                Wi-Fi
-                            </span>
-                        </div>
-
-                        <div class="absolute top-2 right-2 z-10">
-                            <span id="showroom-brand-tag" class="text-[10px] font-black tracking-widest uppercase bg-brand-dark text-white px-2.5 py-0.5 rounded-md shadow-sm">
-                                HISENSE
-                            </span>
-                        </div>
-
-                        <!-- Foto del Equipo -->
-                        <div class="w-full flex items-center justify-center pt-5 pb-2">
-                            <img id="product-photo" 
-                                 src="https://images.unsplash.com/photo-1614633837777-6288339f4e5d?auto=format&fit=crop&w=720&q=80" 
-                                 alt="Split Muro y Unidad Exterior" 
-                                 class="h-32 sm:h-44 object-contain equipment-shadow max-w-[90%] transition-transform duration-300 hover:scale-105"
-                                 loading="lazy">
-                        </div>
-
-                        <div class="w-3/4 h-2 bg-gradient-to-r from-transparent via-slate-300/60 to-transparent rounded-full filter blur-[1px]"></div>
-                        
-                        <p class="text-[10.5px] text-slate-500 font-semibold mt-1 flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                            <span>Conjunto completo con unidad exterior, placa Inverter y display LED</span>
-                        </p>
-                    </div>
-
-                    <!-- SELECTOR DE CAPACIDAD CON METROS CUADRADOS -->
-                    <div class="mt-2 mb-3">
-                        <span class="text-[11px] font-extrabold uppercase text-slate-600 tracking-wider block mb-1.5 flex items-center justify-between">
-                            <span>1. Elige la Capacidad según tus Espacios:</span>
-                            <span class="text-[10.5px] font-semibold text-brand-blue" id="sqm-guide-text">Dormitorios hasta 18 m²</span>
-                        </span>
-                        
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="btu-selector-container">
-                            <!-- Se inyecta dinámicamente con JS -->
-                        </div>
-                    </div>
-
-                    <!-- Bloque de Precio Llave en Mano -->
-                    <div class="my-3 bg-gradient-to-br from-blue-50 to-indigo-50/60 p-4 rounded-2xl border border-blue-200/90 text-center relative overflow-hidden">
-                        <span class="text-[11px] font-extrabold uppercase text-slate-500 tracking-wider block mb-0.5">
-                            Precio Total Llave en Mano (<span id="display-badge-cap" class="text-brand-blue font-black">9.000 BTU</span>)
-                        </span>
-                        
-                        <div class="flex items-baseline justify-center gap-2">
-                            <span class="text-3xl sm:text-4xl font-[900] text-brand-dark tracking-tight" id="display-final-total">
-                                $480.000
-                            </span>
-                            <span class="text-[11px] sm:text-xs font-black text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md">
-                                IVA Incluido
-                            </span>
-                        </div>
-                        <p class="text-[10px] text-slate-500 font-semibold mt-1">
-                            Equipo nuevo en caja + Insumos de canalización + Instalación profesional certificada
-                        </p>
-                    </div>
-
-                    <!-- Botón Principal WhatsApp -->
-                    <a id="btn-quote-whatsapp" 
-                       href="#" 
-                       target="_blank" 
-                       class="relative overflow-hidden shimmer-btn w-full bg-emerald-500 hover:bg-emerald-600 active:scale-[0.98] text-white font-extrabold py-3.5 px-4 rounded-2xl text-center text-sm uppercase tracking-wide transition-all flex items-center justify-center gap-2 shadow-md mb-4">
-                        <i class="fab fa-whatsapp text-lg"></i>
-                        <span id="btn-quote-text">Cotizar Llave en Mano con José Guerrero</span>
-                    </a>
-
-                    <!-- Mini Ficha del Kit Básico Incluido -->
-                    <div class="bg-slate-50 border border-slate-200/90 rounded-2xl p-3 text-xs mb-3">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="font-extrabold text-slate-800 text-[11px] uppercase tracking-wide flex items-center gap-1.5">
-                                <i class="fas fa-tools text-emerald-500"></i>
-                                Kit de Instalación Básico Incluido:
-                            </span>
-                            <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded">
-                                ★ 3 Años Garantía Equipo
-                            </span>
-                        </div>
-                        <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600">
-                            <div class="bg-white p-2 rounded-xl border border-slate-200/80 shadow-xs">
-                                <strong class="text-slate-800 block">Soporte U. Exterior</strong>
-                                1 juego reforzado
-                            </div>
-                            <div class="bg-white p-2 rounded-xl border border-slate-200/80 shadow-xs">
-                                <strong class="text-slate-800 block">Bandeja 100x50</strong>
-                                1 tira canaleta
-                            </div>
-                            <div class="bg-white p-2 rounded-xl border border-slate-200/80 shadow-xs">
-                                <strong class="text-slate-800 block">Bandeja 20x10</strong>
-                                1 tira canaleta
-                            </div>
-                            <div class="bg-white p-2 rounded-xl border border-slate-200/80 shadow-xs">
-                                <strong class="text-slate-800 block">Cordón Eléctrico</strong>
-                                3 metros incluidos
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Instrumental Certificado de Precisión -->
-                    <div class="bg-gradient-to-br from-brand-navy via-[#1e2f4a] to-brand-navyDark text-white rounded-2xl p-3.5 shadow-md border border-brand-blue/30">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                            <h4 class="text-[11px] sm:text-xs font-black uppercase tracking-wider text-brand-bar3">
-                                Instalación Profesional Premium • Instrumental Certificado
-                            </h4>
-                        </div>
-                        <p class="text-[11px] text-brand-bar2/90 leading-snug mb-2.5">
-                            Protocolo técnico de ingeniería con herramientas de alta precisión calibradas:
-                        </p>
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[10.5px]">
-                            <div class="bg-white/10 backdrop-blur-sm p-2 rounded-xl border border-white/10">
-                                <span class="text-emerald-400 font-bold block">✓ Vacío Profundo</span>
-                                <span class="text-brand-bar1">Bomba de vacío & vacuómetro digital</span>
-                            </div>
-                            <div class="bg-white/10 backdrop-blur-sm p-2 rounded-xl border border-white/10">
-                                <span class="text-emerald-400 font-bold block">✓ Medición Fluke</span>
-                                <span class="text-brand-bar1">Pistola láser Fluke calibrada</span>
-                            </div>
-                            <div class="bg-white/10 backdrop-blur-sm p-2 rounded-xl border border-white/10">
-                                <span class="text-emerald-400 font-bold block">✓ Amperímetro</span>
-                                <span class="text-brand-bar1">Control de carga y consumo nominal</span>
-                            </div>
-                            <div class="bg-white/10 backdrop-blur-sm p-2 rounded-xl border border-white/10">
-                                <span class="text-emerald-400 font-bold block">✓ Presión Óptima</span>
-                                <span class="text-brand-bar1">Manómetros sellados anti-fugas</span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="mt-4 flex gap-2 justify-center">
-                    <a href="#mantenimiento" class="text-xs font-bold text-brand-blue hover:underline bg-white px-3.5 py-2 rounded-xl border border-slate-200 shadow-sm flex items-center gap-1.5">
-                        <i class="fas fa-clipboard-check"></i>
-                        Ver Planes de Mantenimiento Preventivo
-                    </a>
-                </div>
-
-            </main>
-
-            <!-- SECCIÓN DE PLANES DE MANTENIMIENTO -->
-            <section id="mantenimiento" class="bg-slate-100 py-8 sm:py-12 border-t border-slate-200">
-                <div class="max-w-4xl mx-auto px-3 sm:px-6">
-                    
-                    <div class="text-center mb-6">
-                        <span class="inline-block bg-blue-100 text-brand-blue px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider mb-2">
-                            Cuidado y Continuidad Operativa
-                        </span>
-                        <h3 class="text-2xl sm:text-3xl font-[900] text-brand-dark tracking-tight">
-                            Planes de Mantenimiento
-                        </h3>
-                        <p class="text-slate-600 text-xs sm:text-sm mt-1 max-w-xl mx-auto">
-                            Todos los planes incluyen <strong>diagnóstico predictivo con informe técnico en PDF</strong>.
-                        </p>
-                    </div>
-
-                    <!-- Mini Comparativa Preventivo vs Correctivo -->
-                    <div class="grid grid-cols-2 gap-2 mb-6 text-xs">
-                        <div class="bg-white p-3 rounded-2xl border border-emerald-200 shadow-sm">
-                            <span class="text-[10px] font-bold text-emerald-600 uppercase block">1. Preventivo</span>
-                            <strong class="text-slate-800 text-xs sm:text-sm block mt-0.5">Higienización & Salud</strong>
-                            <p class="text-[10px] text-slate-500 mt-1">Evita bacterias, goteos y reduce cuenta de luz.</p>
-                            <span class="text-emerald-600 font-black block mt-2">Desde $45.000</span>
-                        </div>
-                        <div class="bg-rose-50 p-3 rounded-2xl border border-rose-200 shadow-sm">
-                            <span class="text-[10px] font-bold text-rose-600 uppercase block">2. Correctivo</span>
-                            <strong class="text-slate-800 text-xs sm:text-sm block mt-0.5">Falla en Verano</strong>
-                            <p class="text-[10px] text-slate-500 mt-1">Quemadura de placa, compresor o fugas.</p>
-                            <span class="text-rose-700 font-black block mt-2">$120.000 a $350.000+</span>
-                        </div>
-                    </div>
-
-                    <!-- Pestañas de Mantenimiento -->
-                    <div class="flex overflow-x-auto gap-1.5 pb-2 mb-4">
-                        <button onclick="switchMaintTab('residencial')" id="maint-btn-residencial" class="maint-tab-btn flex-shrink-0 px-3 py-2 rounded-xl text-xs font-bold transition-all bg-brand-blue text-white shadow">
-                            Residencial
-                        </button>
-                        <button onclick="switchMaintTab('comunidad')" id="maint-btn-comunidad" class="maint-tab-btn flex-shrink-0 px-3 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 border border-slate-200">
-                            Campaña Edificios
-                        </button>
-                        <button onclick="switchMaintTab('upgrades')" id="maint-btn-upgrades" class="maint-tab-btn flex-shrink-0 px-3 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 border border-slate-200">
-                            Upgrades en Terreno
-                        </button>
-                        <button onclick="switchMaintTab('empresas')" id="maint-btn-empresas" class="maint-tab-btn flex-shrink-0 px-3 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 border border-slate-200">
-                            Empresas (B2B)
-                        </button>
-                    </div>
-
-                    <!-- Tab: Residencial -->
-                    <div id="maint-content-residencial" class="maint-content block space-y-3">
-                        <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex flex-col justify-between">
-                            <div>
-                                <div class="flex items-center justify-between">
-                                    <span class="text-[10px] font-bold text-slate-500 uppercase bg-slate-100 px-2 py-0.5 rounded">1 Visita puntual</span>
-                                    <span class="text-lg font-[900] text-brand-blue">$45.000</span>
-                                </div>
-                                <h4 class="text-base font-black text-brand-dark mt-1">Mantención Base Preventiva</h4>
-                                <p class="text-xs text-slate-600 mt-1 leading-snug">
-                                    Limpieza de filtros, higienización interior/exterior, prueba de drenaje, chequeo eléctrico, medición de &Delta;T e Informe PDF digital.
-                                </p>
-                            </div>
-                            <a href="https://wa.me/56957776174?text=Hola%20Jos%C3%A9,%20deseo%20agendar%20Mantenci%C3%B3n%20Base%20Preventiva%20($45.000)" 
-                               target="_blank" class="mt-3 block w-full text-center bg-brand-dark hover:bg-brand-navy text-white font-bold py-2.5 rounded-xl text-xs uppercase tracking-wide transition-colors">
-                                Agendar por $45.000
-                            </a>
-                        </div>
-
-                        <!-- Pack Más Vendido -->
-                        <div class="bg-white rounded-2xl p-4 border-2 border-brand-blue shadow-md flex flex-col justify-between relative">
-                            <span class="absolute top-3 right-3 bg-brand-blue text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase">
-                                ★ Más Vendido
-                            </span>
-                            <div>
-                                <span class="text-[10px] font-bold text-brand-blue uppercase bg-blue-50 px-2 py-0.5 rounded">1 Visita Mejorada</span>
-                                <h4 class="text-base font-black text-brand-dark mt-1">Pack Estacional "Cero Alergias / Ahorro"</h4>
-                                <p class="text-xs text-slate-600 mt-1 leading-snug">
-                                    <strong>Mantención Base +</strong> Espuma germicida en serpentín + pastilla alguicida en bandeja + sanitización contra polen y ácaros.
-                                </p>
-                            </div>
-                            <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between gap-2">
-                                <span class="text-xl font-[900] text-emerald-600">$55.000</span>
-                                <a href="https://wa.me/56957776174?text=Hola%20Jos%C3%A9,%20deseo%20agendar%20el%20Pack%20Estacional%20Cero%20Alergias%20($55.000)" 
-                                   target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2.5 px-4 rounded-xl text-xs uppercase tracking-wide">
-                                    Agendar Más Vendido
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- Pase Anual Prepagado -->
-                        <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex flex-col justify-between">
-                            <div>
-                                <div class="flex items-center justify-between">
-                                    <span class="text-[10px] font-bold text-amber-700 uppercase bg-amber-50 px-2 py-0.5 rounded">2 Visitas al año</span>
-                                    <span class="text-lg font-[900] text-brand-dark">$70.000 <span class="text-[10px] text-emerald-600 font-bold">(Ahorras $20k)</span></span>
-                                </div>
-                                <h4 class="text-base font-black text-brand-dark mt-1">Pase Anual "Clima Todo el Año"</h4>
-                                <p class="text-xs text-slate-600 mt-1 leading-snug">
-                                    2 Mantenciones Completas (1 en Primavera y 1 en Otoño) + Prioridad de agenda todo el año.
-                                </p>
-                            </div>
-                            <a href="https://wa.me/56957776174?text=Hola%20Jos%C3%A9,%20deseo%20contratar%20el%20Pase%20Anual%20Prepagado%20($70.000)" 
-                               target="_blank" class="mt-3 block w-full text-center bg-brand-dark hover:bg-brand-navy text-white font-bold py-2.5 rounded-xl text-xs uppercase tracking-wide transition-colors">
-                                Contratar Pase Anual ($70.000)
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Tab: Comunidad -->
-                    <div id="maint-content-comunidad" class="maint-content hidden bg-white rounded-2xl p-4 sm:p-5 border border-slate-200">
-                        <span class="bg-emerald-100 text-emerald-800 text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase">
-                            Convenio Edificios
-                        </span>
-                        <h4 class="text-lg font-black text-brand-dark mt-2">Día de Climatización en su Comunidad</h4>
-                        <p class="text-xs text-slate-600 mt-1 leading-snug">
-                            Coordinamos una fecha exclusiva con la administración o vecinos en el mismo bloque horario:
-                        </p>
-                        <div class="grid grid-cols-2 gap-2 my-3 text-xs">
-                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-center">
-                                <span class="text-[10px] font-bold text-slate-500 block">3 a 4 Equipos</span>
-                                <strong class="text-base font-black text-brand-blue block mt-0.5">$38.000</strong>
-                                <span class="text-[10px] text-slate-400">por depto</span>
-                            </div>
-                            <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-200 text-center">
-                                <span class="text-[10px] font-bold text-emerald-700 block">5 o más Equipos</span>
-                                <strong class="text-base font-black text-emerald-700 block mt-0.5">$35.000</strong>
-                                <span class="text-[10px] text-emerald-600">por depto</span>
-                            </div>
-                        </div>
-                        <a href="https://wa.me/56957776174?text=Hola%20Jos%C3%A9,%20quiero%20coordinar%20una%20jornada%20de%20mantenimiento%20en%20mi%20edificio" target="_blank" class="flex items-center justify-center gap-1.5 text-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-xs uppercase shadow transition-colors">
-                            <i class="fab fa-whatsapp"></i>
-                            <span>Coordinar Jornada Comunitaria</span>
-                        </a>
-                    </div>
-
-                    <!-- Tab: Upgrades -->
-                    <div id="maint-content-upgrades" class="maint-content hidden grid grid-cols-2 gap-2">
-                        <a href="https://wa.me/56957776174?text=Hola%20Jos%C3%A9,%20deseo%20agregar%20el%20Kit%20Sanitario%20Antial%C3%A9rgico%20(+$15.000)" target="_blank" class="bg-white p-3 rounded-2xl border border-slate-200 text-xs hover:border-emerald-400 hover:shadow-sm transition-all block">
-                            <span class="text-emerald-600 font-extrabold text-sm block">+$15.000</span>
-                            <strong class="text-brand-dark block text-xs mt-0.5">Kit Sanitario</strong>
-                            <p class="text-[10px] text-slate-500 mt-1">Espuma germicida + pastilla alguicida contra olores.</p>
-                            <span class="text-[10px] font-bold text-emerald-600 mt-2 block">Pedir por WhatsApp →</span>
-                        </a>
-                        <a href="https://wa.me/56957776174?text=Hola%20Jos%C3%A9,%20deseo%20agregar%20la%20Transformaci%C3%B3n%20WiFi%20Smart%20(+$29.990)" target="_blank" class="bg-white p-3 rounded-2xl border border-slate-200 text-xs hover:border-brand-blue hover:shadow-sm transition-all block">
-                            <span class="text-brand-blue font-extrabold text-sm block">+$29.990</span>
-                            <strong class="text-brand-dark block text-xs mt-0.5">Módulo Wi-Fi</strong>
-                            <p class="text-[10px] text-slate-500 mt-1">Control remoto desde el celular en equipos clásicos.</p>
-                            <span class="text-[10px] font-bold text-brand-blue mt-2 block">Pedir por WhatsApp →</span>
-                        </a>
-                        <a href="https://wa.me/56957776174?text=Hola%20Jos%C3%A9,%20deseo%20agregar%20el%20Escudo%20El%C3%A9ctrico%20Inverter%20(+$30.000)" target="_blank" class="bg-white p-3 rounded-2xl border border-slate-200 text-xs hover:border-amber-400 hover:shadow-sm transition-all block">
-                            <span class="text-amber-600 font-extrabold text-sm block">+$30.000</span>
-                            <strong class="text-brand-dark block text-xs mt-0.5">Escudo Inverter</strong>
-                            <p class="text-[10px] text-slate-500 mt-1">Protector de sobretensión para placas electrónicas.</p>
-                            <span class="text-[10px] font-bold text-amber-600 mt-2 block">Pedir por WhatsApp →</span>
-                        </a>
-                        <a href="https://wa.me/56957776174?text=Hola%20Jos%C3%A9,%20deseo%20agregar%20la%20Garant%C3%ADa%20Blindada%203%20A%C3%B1os%20(+$55.000)" target="_blank" class="bg-amber-50 p-3 rounded-2xl border border-amber-300 text-xs hover:shadow-sm transition-all block">
-                            <span class="text-amber-800 font-extrabold text-sm block">+$55.000</span>
-                            <strong class="text-amber-950 block text-xs mt-0.5">Garantía 3 Años</strong>
-                            <p class="text-[10px] text-amber-900 mt-1">Blindaje contra fugas con 1 mantención anual.</p>
-                            <span class="text-[10px] font-bold text-amber-800 mt-2 block">Pedir por WhatsApp →</span>
-                        </a>
-                    </div>
-
-                    <!-- Tab: Empresas -->
-                    <div id="maint-content-empresas" class="maint-content hidden bg-white rounded-2xl p-4 border border-slate-200 text-xs">
-                        <span class="bg-brand-navy text-brand-bar2 text-[10px] font-black px-2 py-0.5 rounded uppercase">B2B Formal</span>
-                        <h4 class="text-base font-black text-brand-dark mt-1">Empresas, Locales y Servidores</h4>
-                        <p class="text-slate-600 mt-1 text-[11px]">Continuidad operativa, respaldo para Seremi/Mutual y facturación electrónica formal.</p>
-                        <div class="grid grid-cols-2 gap-2 my-3">
-                            <a href="https://wa.me/56957776174?text=Hola%20Jos%C3%A9,%20solicito%20cotizaci%C3%B3n%20para%20Plan%20Comercio%20Seguro%20(Desde%20$38.000%20+%20IVA)" target="_blank" class="bg-slate-50 hover:bg-blue-50 p-2.5 rounded-xl border border-slate-200 block transition-colors">
-                                <span class="font-bold text-[10px] text-slate-500 block">Comercio Semestral</span>
-                                <strong class="text-sm font-black text-brand-blue">Desde $38.000</strong>
-                                <span class="text-[10px] text-slate-400 block">+ IVA / eq.</span>
-                                <span class="text-[10px] font-bold text-brand-blue mt-1 block">Cotizar →</span>
-                            </a>
-                            <a href="https://wa.me/56957776174?text=Hola%20Jos%C3%A9,%20solicito%20cotizaci%C3%B3n%20para%20Plan%20Continuidad%20PRO%20(Desde%20$34.000%20+%20IVA)" target="_blank" class="bg-slate-50 hover:bg-blue-50 p-2.5 rounded-xl border border-slate-200 block transition-colors">
-                                <span class="font-bold text-[10px] text-slate-500 block">Continuidad Trimestral</span>
-                                <strong class="text-sm font-black text-brand-blue">Desde $34.000</strong>
-                                <span class="text-[10px] text-slate-400 block">+ IVA / eq.</span>
-                                <span class="text-[10px] font-bold text-brand-blue mt-1 block">Cotizar →</span>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-            <!-- Footer Catálogo -->
-            <footer class="bg-white border-t border-slate-200 mt-auto">
-                <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 text-center text-xs text-slate-500">
-                    <p class="font-bold text-brand-dark">EasyCool Climatización • RUT 77.448.234-2</p>
-                    <p class="mt-1">Atención personalizada con José Guerrero: <a href="https://wa.me/56957776174" class="text-brand-blue font-bold">+56 9 5777 6174</a></p>
-                </div>
-            </footer>
-
-        </div>
-    </div>
-
-    <!-- MODAL DE CLAVE ADMINISTRATIVA (1811) -->
-    <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-sm w-full p-6 text-center">
-            <div class="w-12 h-12 bg-blue-100 text-brand-blue rounded-full flex items-center justify-center mx-auto mb-3">
-                <i class="fas fa-lock text-xl"></i>
+                <!-- Imagen del equipo (usa img local si existe, si no, usa el placeholder por defecto) -->
+                <img id="ac-render" src="img/hisense.png" onerror="this.src='https://raw.githubusercontent.com/guerrero1708/easycool/main/img/hisense.png'; this.onerror=function(){this.src='https://via.placeholder.com/400x200.png?text=Equipo+Split+Inverter';}" alt="Split Inverter" class="ac-image mt-4 mb-2">
+                
+                <h2 id="brand-title" class="font-montserrat font-black text-2xl text-slate-800 tracking-tight mt-2">HISENSE Hi-Vida</h2>
+                <p class="text-xs text-slate-500 font-medium">Tecnología Inverter Smart</p>
             </div>
-            <h3 class="text-lg font-black text-brand-dark">Acceso Administrativo</h3>
-            <p class="text-xs text-slate-500 mt-1 mb-4">Ingresa la clave de seguridad para modificar costos y equipos.</p>
-            
-            <form onsubmit="handleAuthSubmit(event)" class="space-y-3">
-                <input type="password" 
-                       id="admin-pass-input" 
-                       placeholder="Ingresa clave PIN" 
-                       inputmode="numeric" 
-                       class="w-full text-center tracking-widest text-lg font-bold py-2.5 px-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-blue focus:outline-none">
-                <p id="auth-error-msg" class="text-xs text-rose-600 font-bold hidden">Clave incorrecta.</p>
-                <div class="flex gap-2 pt-2">
-                    <button type="button" onclick="closeAuthModal()" class="w-1/2 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-50">
-                        Cancelar
-                    </button>
-                    <button type="submit" class="w-1/2 py-2.5 rounded-xl bg-brand-blue text-white font-extrabold text-xs shadow-md hover:bg-blue-600 transition-colors">
-                        Ingresar
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
 
-    <!-- MODAL DE EDICIÓN DE COSTOS -->
-    <div id="admin-modal" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
-        <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 max-w-3xl w-full max-h-[92vh] flex flex-col overflow-hidden">
-            
-            <div class="p-4 sm:p-5 bg-gradient-to-r from-brand-navy via-brand-dark to-brand-navyDark text-white flex justify-between items-center border-b border-brand-blue/30">
+            <!-- Selector de Capacidad (BTU y m2) -->
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">2. Capacidad y Espacio</p>
+            <div class="grid grid-cols-2 gap-3 mb-6">
+                <button class="tab-capacity active border border-slate-200 rounded-xl p-3 text-left" onclick="selectCapacity('9000', this)">
+                    <span class="block font-black text-lg leading-tight">9.000 BTU</span>
+                    <span class="block text-[11px] opacity-80 mt-1"><i class="fas fa-ruler-combined"></i> Hasta 18 m²</span>
+                </button>
+                <button class="tab-capacity border border-slate-200 rounded-xl p-3 text-left text-slate-600 bg-white" onclick="selectCapacity('12000', this)">
+                    <span class="block font-black text-lg leading-tight">12.000 BTU</span>
+                    <span class="block text-[11px] opacity-80 mt-1"><i class="fas fa-ruler-combined"></i> Hasta 24 m²</span>
+                </button>
+                <button class="tab-capacity border border-slate-200 rounded-xl p-3 text-left text-slate-600 bg-white" onclick="selectCapacity('18000', this)">
+                    <span class="block font-black text-lg leading-tight">18.000 BTU</span>
+                    <span class="block text-[11px] opacity-80 mt-1"><i class="fas fa-ruler-combined"></i> Hasta 36 m²</span>
+                </button>
+                <button class="tab-capacity border border-slate-200 rounded-xl p-3 text-left text-slate-600 bg-white" onclick="selectCapacity('24000', this)">
+                    <span class="block font-black text-lg leading-tight">24.000 BTU</span>
+                    <span class="block text-[11px] opacity-80 mt-1"><i class="fas fa-ruler-combined"></i> Hasta 50 m²</span>
+                </button>
+            </div>
+
+            <!-- Tarjeta de Cotización Final -->
+            <div class="bg-slate-800 rounded-2xl p-5 mb-6 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500 rounded-full filter blur-[50px] opacity-20 -mr-10 -mt-10"></div>
+                
+                <p class="text-[11px] font-bold text-blue-300 uppercase tracking-wider mb-1">Precio Llave en Mano</p>
+                <div class="flex items-end gap-2 mb-4">
+                    <span class="text-4xl font-black tracking-tighter" id="final-price">$477.194</span>
+                    <span class="text-xs font-medium text-slate-300 mb-1 pb-1">IVA Incluido</span>
+                </div>
+
+                <div class="bg-slate-900/50 rounded-xl p-3 mb-5 border border-slate-700/50">
+                    <p class="text-xs font-bold text-slate-300 mb-2"><i class="fas fa-box-open mr-1"></i> El Kit de Instalación Incluye:</p>
+                    <ul class="text-[11px] text-slate-400 space-y-1.5 font-medium">
+                        <li><i class="fas fa-check text-blue-400 mr-1.5"></i> Equipo Split Muro + Unidad Exterior</li>
+                        <li><i class="fas fa-check text-blue-400 mr-1.5"></i> Soporte reforzado unidad exterior</li>
+                        <li><i class="fas fa-check text-blue-400 mr-1.5"></i> Canaleta 100x50 y 20x10</li>
+                        <li><i class="fas fa-check text-blue-400 mr-1.5"></i> Cordón eléctrico (3 metros)</li>
+                        <li><i class="fas fa-check text-blue-400 mr-1.5"></i> <strong>Instalación Operativa Completa</strong></li>
+                    </ul>
+                </div>
+
+                <a id="wa-buy-btn" href="#" target="_blank" class="block w-full bg-green-500 hover:bg-green-400 text-white text-center font-bold py-3.5 rounded-xl transition shadow-[0_0_15px_rgba(34,197,94,0.4)] text-sm">
+                    <i class="fab fa-whatsapp mr-1 text-lg align-middle"></i> Cotizar este Equipo
+                </a>
+            </div>
+
+            <!-- Banner Garantía y Herramientas -->
+            <div class="bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl p-4 mb-4 text-slate-900 shadow-sm flex items-center gap-4">
+                <i class="fas fa-shield-alt text-3xl opacity-80"></i>
                 <div>
-                    <span class="text-[10px] uppercase font-black text-brand-bar3 tracking-wider">Gestión Interna EasyCool</span>
-                    <h3 class="text-lg sm:text-xl font-[900]">Actualizador de Costos & Equipos</h3>
+                    <h4 class="font-black text-sm leading-tight uppercase">3 Años de Garantía</h4>
+                    <p class="text-[10px] font-medium opacity-90 leading-tight mt-0.5">En equipos suministrados por EasyCool. (1 año por fuga en equipos de cliente).</p>
                 </div>
-                <button onclick="closeAdminPanel()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-slate-200 flex items-center justify-center font-bold">
-                    ✕
-                </button>
             </div>
 
-            <!-- Insumos Unitarios -->
-            <div class="bg-slate-100 px-4 py-3 border-b border-slate-200">
-                <div class="flex items-center justify-between mb-2">
-                    <span class="text-[11px] font-black uppercase text-slate-700 tracking-wider">1. Costos Unitarios Insumos Básicos (Neto)</span>
-                    <span class="text-[11px] text-slate-500 font-semibold" id="total-kit-materials-label">Total Insumos: $19.450</span>
-                </div>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-                    <div class="bg-white p-2 rounded-xl border border-slate-200">
-                        <span class="block text-slate-600 font-bold text-[10px]">Soporte (x1 juego):</span>
-                        <div class="flex items-center gap-1 font-bold mt-1">
-                            <span class="text-slate-400">$</span>
-                            <input type="number" id="mat-soporte" value="7500" step="100" class="w-full p-1 text-right font-black border border-slate-300 rounded focus:ring-1 focus:ring-brand-blue" oninput="updateMaterials()">
-                        </div>
+            <div class="bg-[#152136] rounded-xl p-4 mb-8 border border-slate-700/50">
+                <h4 class="text-white font-bold text-xs uppercase mb-3 flex items-center gap-2">
+                    <i class="fas fa-tools text-blue-400"></i> Instalación Profesional Premium
+                </h4>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-slate-800/50 rounded-lg p-2.5 border border-slate-700/50">
+                        <p class="text-[10px] text-slate-300 font-medium"><i class="fas fa-tachometer-alt text-blue-400 mr-1"></i> Vacío Profundo (Bomba y Vacuómetro)</p>
                     </div>
-                    <div class="bg-white p-2 rounded-xl border border-slate-200">
-                        <span class="block text-slate-600 font-bold text-[10px]">Canaleta 100x50 (x1):</span>
-                        <div class="flex items-center gap-1 font-bold mt-1">
-                            <span class="text-slate-400">$</span>
-                            <input type="number" id="mat-canaleta100" value="5950" step="50" class="w-full p-1 text-right font-black border border-slate-300 rounded focus:ring-1 focus:ring-brand-blue" oninput="updateMaterials()">
-                        </div>
-                    </div>
-                    <div class="bg-white p-2 rounded-xl border border-slate-200">
-                        <span class="block text-slate-600 font-bold text-[10px]">Canaleta 20x10 (x1):</span>
-                        <div class="flex items-center gap-1 font-bold mt-1">
-                            <span class="text-slate-400">$</span>
-                            <input type="number" id="mat-canaleta20" value="1500" step="50" class="w-full p-1 text-right font-black border border-slate-300 rounded focus:ring-1 focus:ring-brand-blue" oninput="updateMaterials()">
-                        </div>
-                    </div>
-                    <div class="bg-white p-2 rounded-xl border border-slate-200">
-                        <span class="block text-slate-600 font-bold text-[10px]">Cordón (x metro):</span>
-                        <div class="flex items-center gap-1 font-bold mt-1">
-                            <span class="text-slate-400">$</span>
-                            <input type="number" id="mat-cordon" value="1500" step="50" class="w-full p-1 text-right font-black border border-slate-300 rounded focus:ring-1 focus:ring-brand-blue" oninput="updateMaterials()">
-                        </div>
+                    <div class="bg-slate-800/50 rounded-lg p-2.5 border border-slate-700/50">
+                        <p class="text-[10px] text-slate-300 font-medium"><i class="fas fa-temperature-low text-blue-400 mr-1"></i> Control Térmico (Láser Fluke)</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Parámetros Financieros -->
-            <div class="bg-slate-50 px-4 py-2 border-b border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                <div class="flex items-center justify-between bg-white px-3 py-1.5 rounded-xl border border-slate-200">
-                    <span class="font-bold text-slate-700">Mano de Obra Fija:</span>
-                    <div class="flex items-center gap-1 font-bold">
-                        <span class="text-slate-400">$</span>
-                        <input type="number" id="cfg-labor" value="120000" step="5000" class="w-24 p-1 text-right font-black border border-slate-300 rounded" onchange="updateGlobalParams()">
+            <!-- Planes de Mantenimiento -->
+            <h3 class="font-black text-lg text-slate-800 mb-4 border-b border-slate-200 pb-2">Planes de Mantenimiento</h3>
+            
+            <div class="space-y-3 mb-8">
+                <!-- Plan Base -->
+                <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 class="font-bold text-slate-800 text-sm">Mantención Base Preventiva</h4>
+                        <span class="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-1 rounded">1 Visita</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-3">Limpieza de filtros, higienización unidad interior/exterior, drenaje, chequeo eléctrico e informe PDF.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="font-black text-blue-600">$45.000</span>
+                        <a href="https://wa.me/56957776174?text=Hola,%20necesito%20agendar%20una%20Mantención%20Base%20de%20$45.000" target="_blank" class="text-[11px] font-bold text-green-600 bg-green-50 px-3 py-1.5 rounded-lg border border-green-200 hover:bg-green-100"><i class="fab fa-whatsapp"></i> Agendar</a>
                     </div>
                 </div>
-                <div class="flex items-center justify-between bg-white px-3 py-1.5 rounded-xl border border-slate-200">
-                    <span class="font-bold text-slate-700">Margen Equipos/Insumos:</span>
-                    <div class="flex items-center gap-1 font-bold">
-                        <input type="number" id="cfg-margin" value="15" step="1" class="w-16 p-1 text-right font-black border border-slate-300 rounded" onchange="updateGlobalParams()">
-                        <span class="text-slate-600 font-bold">%</span>
+                
+                <!-- Plan Alergias -->
+                <div class="bg-white border border-blue-200 rounded-xl p-4 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-blue-500 text-white text-[9px] font-bold px-2 py-1 rounded-bl-lg uppercase">Más Vendido</div>
+                    <div class="flex justify-between items-start mb-2 mt-1">
+                        <h4 class="font-bold text-slate-800 text-sm">Pack "Cero Alergias / Ahorro"</h4>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-3">Mantención Base + Espuma antibacteriana serpentín + Pastilla alguicida + Sanitización de ductos.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="font-black text-blue-600">$55.000</span>
+                        <a href="https://wa.me/56957776174?text=Hola,%20quiero%20agendar%20el%20Pack%20Cero%20Alergias%20de%20$55.000" target="_blank" class="text-[11px] font-bold text-white bg-blue-600 px-3 py-1.5 rounded-lg shadow hover:bg-blue-500"><i class="fab fa-whatsapp"></i> Agendar</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Selector de Marca dentro de Admin -->
-            <div class="px-4 pt-2.5 pb-1 border-b border-slate-100 flex items-center justify-between flex-wrap gap-2">
-                <span class="text-[11px] font-black uppercase text-slate-700 tracking-wider">2. Costo Neto Proveedor por Marca:</span>
-                <div class="flex gap-1" id="admin-brand-nav">
-                    <button type="button" onclick="selectAdminBrandTab('hisense')" id="adm-tab-hisense" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-brand-blue text-white shadow-sm">Hisense</button>
-                    <button type="button" onclick="selectAdminBrandTab('daikin')" id="adm-tab-daikin" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-100 text-slate-700">Daikin</button>
-                    <button type="button" onclick="selectAdminBrandTab('tcl')" id="adm-tab-tcl" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-100 text-slate-700">TCL</button>
-                    <button type="button" onclick="selectAdminBrandTab('trane')" id="adm-tab-trane" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-100 text-slate-700">Trane</button>
+            <!-- Footer Blanco Corporativo -->
+            <div class="bg-white border-t border-slate-200 rounded-2xl p-6 text-center shadow-sm">
+                <!-- Logo Original -->
+                <div class="flex flex-row items-center justify-center font-montserrat select-none gap-4 mb-4">
+                    <div class="relative w-[60px] h-[60px] bg-[#4981F3] rounded-full flex flex-col justify-center items-end pr-[10px] gap-[4px] shadow-sm">
+                        <div class="h-[7px] w-[37px] bg-[#F1F6FF] rounded-full"></div>
+                        <div class="h-[7px] w-[30px] bg-[#E4EEFF] rounded-full"></div>
+                        <div class="h-[7px] w-[22px] bg-[#D2E3FF] rounded-full"></div>
+                    </div>
+                    <div class="flex flex-col items-start mt-1">
+                        <h1 class="text-[#212B3B] font-[900] text-[20px] tracking-tight leading-none mb-0.5">EASYCOOL</h1>
+                        <p class="text-[#9FA5B1] font-[500] text-[10px] tracking-wide leading-none">Climatización</p>
+                    </div>
                 </div>
-            </div>
-
-            <div class="p-4 overflow-y-auto flex-grow" id="admin-equipment-editor">
-                <!-- Se llena dinámicamente con JS -->
-            </div>
-
-            <div class="p-3 bg-slate-50 border-t border-slate-200 flex justify-between items-center">
-                <button onclick="resetDefaults()" class="text-xs text-slate-500 hover:text-rose-600 font-bold underline">
-                    Restaurar valores iniciales
-                </button>
-                <button onclick="closeAdminPanel()" class="bg-brand-blue hover:bg-blue-600 text-white font-extrabold px-5 py-2 rounded-xl text-xs uppercase tracking-wider">
-                    Guardar y Cerrar
-                </button>
+                <div class="space-y-1 text-xs text-slate-500">
+                    <p class="font-bold text-slate-700">José Guerrero</p>
+                    <p>Ejecutivo Comercial</p>
+                    <p>RUT: 77.448.234-2</p>
+                    <a href="https://wa.me/56957776174" target="_blank" class="inline-block mt-3 bg-green-50 text-green-600 font-bold px-4 py-2 rounded-full border border-green-200">
+                        <i class="fab fa-whatsapp mr-1"></i> +56 9 5777 6174
+                    </a>
+                </div>
             </div>
 
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- SCRIPTS INTEGRADOS                         -->
-    <!-- ========================================== -->
+
+    <!-- ==========================================
+         MODALES ADMINISTRATIVOS OCULTOS 
+         ========================================== -->
+         
+    <!-- Modal de PIN -->
+    <div id="admin-pin-modal" class="fixed inset-0 bg-slate-900/90 z-[200] hidden items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl p-6 w-full max-w-sm text-center shadow-2xl fade-in border border-slate-200">
+            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl"><i class="fas fa-lock"></i></div>
+            <h3 class="text-lg font-black text-slate-800 mb-1">Acceso Administrativo</h3>
+            <p class="text-xs text-slate-500 mb-5">Ingrese el PIN de seguridad para modificar los costos.</p>
+            <input type="password" id="pin-input" class="w-full text-center tracking-[0.5em] text-2xl py-3 rounded-xl mb-4" placeholder="****" maxlength="4">
+            <div class="flex gap-2">
+                <button onclick="closePinModal()" class="flex-1 py-3 rounded-xl font-bold text-slate-500 bg-slate-100 hover:bg-slate-200 text-sm">Cancelar</button>
+                <button onclick="verifyPin()" class="flex-1 py-3 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 text-sm shadow-md">Verificar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Panel de Costos -->
+    <div id="admin-panel" class="fixed inset-0 bg-slate-900/95 z-[210] hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden shadow-2xl fade-in">
+            <div class="bg-slate-800 p-4 text-white flex justify-between items-center">
+                <div>
+                    <h3 class="font-bold text-sm">GESTIÓN DE COSTOS (NETO)</h3>
+                    <p class="text-[10px] text-blue-300">Modifica y presiona Guardar. Cálculo automático.</p>
+                </div>
+                <button onclick="closeAdminPanel()" class="text-slate-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            
+            <div class="p-5 overflow-y-auto bg-slate-50 space-y-5">
+                
+                <!-- Insumos -->
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                    <h4 class="text-xs font-bold text-slate-500 mb-3 uppercase">1. Insumos del Kit</h4>
+                    <div class="grid grid-cols-2 gap-3 mb-3">
+                        <div><label class="block text-[10px] text-slate-500 mb-1">Soporte ($)</label><input type="number" id="adm-soporte"></div>
+                        <div><label class="block text-[10px] text-slate-500 mb-1">Canaleta 100 ($)</label><input type="number" id="adm-c100"></div>
+                        <div><label class="block text-[10px] text-slate-500 mb-1">Canaleta 20 ($)</label><input type="number" id="adm-c20"></div>
+                        <div><label class="block text-[10px] text-slate-500 mb-1">Cordón /metro ($)</label><input type="number" id="adm-cordon"></div>
+                    </div>
+                </div>
+
+                <!-- Equipos Base -->
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                    <h4 class="text-xs font-bold text-slate-500 mb-3 uppercase">2. Costo Proveedor (Ej: Hisense)</h4>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center"><span class="text-xs font-bold text-slate-700">9.000 BTU:</span><input type="number" id="adm-h9" class="w-32"></div>
+                        <div class="flex justify-between items-center"><span class="text-xs font-bold text-slate-700">12.000 BTU:</span><input type="number" id="adm-h12" class="w-32"></div>
+                        <div class="flex justify-between items-center"><span class="text-xs font-bold text-slate-700">18.000 BTU:</span><input type="number" id="adm-h18" class="w-32"></div>
+                        <div class="flex justify-between items-center"><span class="text-xs font-bold text-slate-700">24.000 BTU:</span><input type="number" id="adm-h24" class="w-32"></div>
+                    </div>
+                    <p class="text-[10px] text-slate-400 mt-3 text-center">*Los cambios aplican para el cálculo de Hisense en esta demo.</p>
+                </div>
+
+            </div>
+            
+            <div class="p-4 bg-white border-t border-slate-200">
+                <button onclick="saveAdminData()" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition">GUARDAR CAMBIOS</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==========================================
+         SCRIPTS Y LÓGICA DE LA APLICACIÓN
+         ========================================== -->
     <script>
-        // --- 1. LÓGICA DE CONTROL DEL MODAL DE CATÁLOGO ---
-        function openCatalogModal() {
-            const modal = document.getElementById('catalog-modal');
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            selectBrand(currentBrand);
-        }
+        // --- BASE DE DATOS Y ESTADO ---
+        let currentBrand = 'hisense';
+        let currentCapacity = '9000';
 
-        function closeCatalogModal() {
-            const modal = document.getElementById('catalog-modal');
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        // --- 2. LÓGICA DEL LINKTREE ORIGINAL ---
-        function downloadVCard() {
-            const vcard = `BEGIN:VCARD
-VERSION:3.0
-FN:José Guerrero - EasyCool Climatización
-ORG:EasyCool Climatización
-TITLE:Ejecutivo Comercial Climatización
-TEL;TYPE=CELL:+56957776174
-EMAIL:ventas@easycoolclimatizacion.com
-URL:https://guerrero1708.github.io/
-NOTE:Venta, Instalación y Mantención de Aire Acondicionado con 3 Años de Garantía.
-END:VCARD`;
-
-            const blob = new Blob([vcard], { type: 'text/vcard' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', 'Contacto_EasyCool.vcf');
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            showToast('¡Abriendo Contactos!');
-        }
-
-        function toggleBank() {
-            const content = document.getElementById('bank-info');
-            const arrow = document.getElementById('bank-arrow');
-            content.classList.toggle('active');
-
-            if (content.classList.contains('active')) {
-                arrow.classList.remove('fa-chevron-down');
-                arrow.classList.add('fa-chevron-up');
-            } else {
-                arrow.classList.remove('fa-chevron-up');
-                arrow.classList.add('fa-chevron-down');
-            }
-        }
-
-        function copyFullBankData() {
-            const dataToCopy = `Nombre: Easycool Climatizacion
-RUT: 77.448.234-2
-Banco: Banco Bci
-Tipo Cuenta: Cta Corriente
-Nº Cuenta: 97512508
-Correo: ventas@easycoolclimatizacion.com`;
-            copyText(dataToCopy);
-        }
-
-        function copyText(text) {
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(text).then(() => {
-                    showToast('¡Datos Copiados al Portapapeles!');
-                }).catch(() => {
-                    fallbackCopyText(text);
-                });
-            } else {
-                fallbackCopyText(text);
-            }
-        }
-
-        function fallbackCopyText(text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            textArea.style.left = "-9999px";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            try {
-                document.execCommand('copy');
-                showToast('¡Datos Copiados al Portapapeles!');
-            } catch (err) {
-                console.error('Fallback copy error', err);
-            }
-            document.body.removeChild(textArea);
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById("toast");
-            toast.innerText = message;
-            toast.className = "show";
-            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2500);
-        }
-
-        // --- 3. LÓGICA FINANCIERA Y DINÁMICA DEL CATÁLOGO ---
-        const ADMIN_PIN = "1811";
-        let laborCost = 120000;
-        let marginPercent = 15;
-
-        let materials = {
+        // Costos de Insumos Base
+        let costs = {
             soporte: 7500,
             canaleta100: 5950,
             canaleta20: 1500,
-            cordonMetro: 1500,
-            cordonMetrosCant: 3
+            cordon_metro: 1500,
+            manoObra: 120000,
+            margenUtilidad: 1.15,
+            iva: 1.19
         };
 
-        const catalogData = {
-            hisense: {
-                name: "Hisense",
-                fullName: "Hisense Hi-Vida Inverter",
-                series: "Split Muro Inverter • Serie Hi-Vida",
-                tagColor: "bg-[#00897B]",
-                image: "https://images.unsplash.com/photo-1614633837777-6288339f4e5d?auto=format&fit=crop&w=720&q=80",
-                items: [
-                    { btu: "9.000 BTU", baseCost: 224900, sqm: "Hasta 18 m²", note: "Dormitorios o salas de estudio" },
-                    { btu: "12.000 BTU", baseCost: 245900, sqm: "Hasta 24 m²", note: "Dormitorio principal o estar mediano" },
-                    { btu: "18.000 BTU", baseCost: 341000, sqm: "Hasta 36 m²", note: "Living, comedor o espacios abiertos" },
-                    { btu: "22.000 BTU", baseCost: 421600, sqm: "Hasta 45 m²", note: "Plantas completas o salas comerciales" }
-                ]
-            },
-            daikin: {
-                name: "Daikin",
-                fullName: "Daikin Inverter (Japón)",
-                series: "Split Muro Inverter • Calidad Japonesa Premium",
-                tagColor: "bg-[#0097D8]",
-                image: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=720&q=80",
-                items: [
-                    { btu: "9.000 BTU", baseCost: 231900, sqm: "Hasta 18 m²", note: "Ultra silencioso para dormitorios" },
-                    { btu: "12.000 BTU", baseCost: 239990, sqm: "Hasta 24 m²", note: "Dormitorio principal / home office" },
-                    { btu: "18.000 BTU", baseCost: 363000, sqm: "Hasta 36 m²", note: "Living y comedores amplios" },
-                    { btu: "24.000 BTU", baseCost: 454000, sqm: "Hasta 50 m²", note: "Gran caudal para amplias superficies" }
-                ]
-            },
-            tcl: {
-                name: "TCL",
-                fullName: "TCL Smart Inverter",
-                series: "Split Muro Inverter • Conectividad Smart WiFi",
-                tagColor: "bg-[#D92525]",
-                image: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=720&q=80",
-                items: [
-                    { btu: "12.000 BTU", baseCost: 237900, sqm: "Hasta 24 m²", note: "Dormitorios amplios y salas de estar" },
-                    { btu: "18.000 BTU", baseCost: 316990, sqm: "Hasta 36 m²", note: "Living o espacios comunes integrados" },
-                    { btu: "24.000 BTU", baseCost: 395990, sqm: "Hasta 50 m²", note: "Cobertura total de alto rendimiento" }
-                ]
-            },
-            trane: {
-                name: "Trane",
-                fullName: "Trane Heavy Duty Inverter",
-                series: "Split Muro Inverter • Resistencia Heavy Duty",
-                tagColor: "bg-[#EB4C26]",
-                image: "https://images.unsplash.com/photo-1614633837777-6288339f4e5d?auto=format&fit=crop&w=720&q=80",
-                items: [
-                    { btu: "12.000 BTU", baseCost: 240900, sqm: "Hasta 24 m²", note: "Excelente durabilidad en uso continuo" },
-                    { btu: "18.000 BTU", baseCost: 362900, sqm: "Hasta 36 m²", note: "Robusto para oficinas y livings" },
-                    { btu: "24.000 BTU", baseCost: 454600, sqm: "Hasta 50 m²", note: "Máxima robustez industrial y residencial" }
-                ]
-            }
+        // Costos Neto Proveedor por Marca y Capacidad
+        let db = {
+            hisense: { name: "HISENSE Hi-Vida", img: "img/hisense.png", 
+                9000: 224900, 12000: 245900, 18000: 341000, 24000: 421600 },
+            daikin: { name: "DAIKIN Sensira", img: "img/daikin.png", 
+                9000: 231900, 12000: 239990, 18000: 363000, 24000: 454000 },
+            tcl: { name: "TCL Elite Smart", img: "img/tcl.png", 
+                9000: 225000, 12000: 237900, 18000: 316990, 24000: 395990 },
+            trane: { name: "TRANE High Wall", img: "img/trane.png", 
+                9000: 230000, 12000: 240900, 18000: 362900, 24000: 454600 }
         };
 
-        const defaultCatalogData = JSON.parse(JSON.stringify(catalogData));
-        const defaultMaterials = JSON.parse(JSON.stringify(materials));
-
-        let currentBrand = 'hisense';
-        let currentBtuIndex = 0;
-        let adminSelectedBrand = 'hisense';
-
-        function formatCLP(value) {
-            return '$' + Math.round(value).toLocaleString('es-CL');
+        // --- FUNCIONES DE CÁLCULO ---
+        function formatMoney(num) {
+            return '$' + Math.round(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
 
-        function getTotalKitMaterialsCost() {
-            return materials.soporte + materials.canaleta100 + materials.canaleta20 + (materials.cordonMetro * materials.cordonMetrosCant);
+        function calculatePrice() {
+            const costoEquipo = db[currentBrand][currentCapacity];
+            const totalInsumos = costs.soporte + costs.canaleta100 + costs.canaleta20 + (costs.cordon_metro * 3);
+            const baseGravable = (costoEquipo + totalInsumos) * costs.margenUtilidad;
+            const subtotalNeto = baseGravable + costs.manoObra;
+            const finalIva = subtotalNeto * costs.iva;
+            return finalIva;
         }
 
-        function calculatePricing(baseCost) {
-            const marginMultiplier = 1 + (marginPercent / 100);
-            const totalKitCost = getTotalKitMaterialsCost();
+        function renderCatalog() {
+            // UI Updates
+            document.getElementById('brand-title').innerText = db[currentBrand].name;
+            document.getElementById('ac-render').src = db[currentBrand].img;
             
-            const equipoMasInsumosConMargen = (baseCost + totalKitCost) * marginMultiplier;
-            const netSelling = Math.round(equipoMasInsumosConMargen + laborCost);
-            const tax = Math.round(netSelling * 0.19);
-            const totalWithTax = netSelling + tax;
+            const precioFinal = calculatePrice();
+            document.getElementById('final-price').innerText = formatMoney(precioFinal);
             
-            return {
-                net: netSelling,
-                tax: tax,
-                total: totalWithTax
-            };
+            // WA Button update
+            const waBtn = document.getElementById('wa-buy-btn');
+            const msg = `Hola José! Vengo del catálogo web. Me interesa el equipo ${db[currentBrand].name} de ${currentCapacity} BTU por ${formatMoney(precioFinal)} llave en mano.`;
+            waBtn.href = `https://wa.me/56957776174?text=${encodeURIComponent(msg)}`;
         }
 
-        function selectBrand(brandKey) {
-            currentBrand = brandKey;
-            currentBtuIndex = 0;
-
-            document.querySelectorAll('.brand-pill').forEach(btn => btn.classList.remove('active'));
-            const activeBtn = document.getElementById('brand-btn-' + brandKey);
-            if (activeBtn) activeBtn.classList.add('active');
-
-            renderBrandView();
-        }
-
-        function renderBrandView() {
-            const data = catalogData[currentBrand];
-            if (!data) return;
-
-            document.getElementById('brand-title').innerText = data.fullName;
-            document.getElementById('brand-series-subtitle').innerText = data.series;
-            
-            const tag = document.getElementById('showroom-brand-tag');
-            tag.innerText = data.name.toUpperCase();
-            tag.className = `text-[10px] font-black tracking-widest uppercase text-white px-2.5 py-0.5 rounded-md shadow-sm ${data.tagColor}`;
-
-            const photo = document.getElementById('product-photo');
-            photo.classList.remove('fade-swap');
-            void photo.offsetWidth;
-            photo.src = data.image;
-            photo.classList.add('fade-swap');
-
-            const btuContainer = document.getElementById('btu-selector-container');
-            btuContainer.innerHTML = '';
-
-            data.items.forEach((item, idx) => {
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = `btu-chip p-2 rounded-2xl border text-center transition-all ${idx === currentBtuIndex ? 'active' : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'}`;
-                btn.onclick = () => selectBtu(idx);
-
-                btn.innerHTML = `
-                    <span class="block font-black text-xs sm:text-sm tracking-tight leading-tight">${item.btu.replace(" BTU", "")} <span class="text-[10px] opacity-80">BTU</span></span>
-                    <span class="btu-sqm block text-[10px] font-bold text-slate-500 mt-0.5">${item.sqm}</span>
-                `;
-                btuContainer.appendChild(btn);
+        // --- INTERACCIONES UI ---
+        function selectBrand(brand, btnElement) {
+            currentBrand = brand;
+            document.querySelectorAll('.tab-brand').forEach(el => {
+                el.classList.remove('active', 'bg-[#212B3B]', 'text-white');
+                el.classList.add('bg-white', 'text-slate-600');
             });
-
-            renderDisplayDetails();
-        }
-
-        function selectBtu(index) {
-            currentBtuIndex = index;
-            const chips = document.querySelectorAll('.btu-chip');
-            chips.forEach((c, idx) => {
-                if (idx === index) {
-                    c.classList.add('active');
-                    c.classList.remove('bg-slate-50', 'border-slate-200', 'text-slate-700', 'hover:bg-slate-100');
-                } else {
-                    c.classList.remove('active');
-                    c.classList.add('bg-slate-50', 'border-slate-200', 'text-slate-700', 'hover:bg-slate-100');
-                }
-            });
-            renderDisplayDetails();
-        }
-
-        function renderDisplayDetails() {
-            const data = catalogData[currentBrand];
-            const item = data.items[currentBtuIndex] || data.items[0];
-            const pricing = calculatePricing(item.baseCost);
-
-            document.getElementById('display-badge-cap').innerText = item.btu;
-            document.getElementById('sqm-guide-text').innerText = `${item.sqm} • ${item.note}`;
+            btnElement.classList.remove('bg-white', 'text-slate-600');
+            btnElement.classList.add('active', 'bg-[#212B3B]', 'text-white');
             
-            const totalElem = document.getElementById('display-final-total');
-            totalElem.classList.remove('fade-swap');
-            void totalElem.offsetWidth;
-            totalElem.innerText = formatCLP(pricing.total);
-            totalElem.classList.add('fade-swap');
-
-            const message = encodeURIComponent(`Hola José, deseo cotizar el Split ${data.name} ${item.btu} (${item.sqm}) llave en mano con instalación e insumos incluidos por un valor total de ${formatCLP(pricing.total)} (IVA incluido).`);
-            const waBtn = document.getElementById('btn-quote-whatsapp');
-            waBtn.href = `https://wa.me/56957776174?text=${message}`;
-            document.getElementById('btn-quote-text').innerText = `Cotizar ${data.name} ${item.btu} con José`;
+            // Efecto fade en imagen
+            const img = document.getElementById('ac-render');
+            img.style.opacity = 0;
+            setTimeout(() => { renderCatalog(); img.style.opacity = 1; }, 200);
         }
 
-        // --- 4. ACCESO ADMINISTRATIVO SECRETO (5 TOQUES) ---
-        let logoClickCount = 0;
-        let logoClickResetTimeout = null;
+        function selectCapacity(cap, btnElement) {
+            currentCapacity = cap;
+            document.querySelectorAll('.tab-capacity').forEach(el => {
+                el.classList.remove('active', 'bg-[#4981F3]', 'text-white', 'border-[#4981F3]');
+                el.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+            });
+            btnElement.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
+            btnElement.classList.add('active', 'bg-[#4981F3]', 'text-white', 'border-[#4981F3]');
+            renderCatalog();
+        }
 
-        function handleSecretLogoClick() {
-            logoClickCount++;
-            clearTimeout(logoClickResetTimeout);
-            logoClickResetTimeout = setTimeout(() => { logoClickCount = 0; }, 2500);
+        function openCatalog() { document.getElementById('catalog-modal').classList.add('active'); renderCatalog(); }
+        function closeCatalog() { document.getElementById('catalog-modal').classList.remove('active'); }
 
-            if (logoClickCount >= 5) {
-                logoClickCount = 0;
-                clearTimeout(logoClickResetTimeout);
-                openAuthModal();
+        // --- SISTEMA SECRETO ADMINISTRATIVO (5 TOQUES) ---
+        let tapCount = 0;
+        let tapTimer;
+
+        document.getElementById('secret-trigger').addEventListener('click', () => {
+            tapCount++;
+            clearTimeout(tapTimer);
+            if (tapCount >= 5) {
+                tapCount = 0;
+                document.getElementById('admin-pin-modal').classList.remove('hidden');
+                document.getElementById('admin-pin-modal').classList.add('flex');
+                document.getElementById('pin-input').value = '';
+                document.getElementById('pin-input').focus();
+            } else {
+                tapTimer = setTimeout(() => { tapCount = 0; }, 2500);
             }
+        });
+
+        function closePinModal() {
+            document.getElementById('admin-pin-modal').classList.add('hidden');
+            document.getElementById('admin-pin-modal').classList.remove('flex');
         }
 
-        function openAuthModal() {
-            const modal = document.getElementById('auth-modal');
-            const input = document.getElementById('admin-pass-input');
-            const errorMsg = document.getElementById('auth-error-msg');
-            input.value = '';
-            errorMsg.classList.add('hidden');
-            modal.classList.remove('hidden');
-            input.focus();
-        }
-
-        function closeAuthModal() {
-            document.getElementById('auth-modal').classList.add('hidden');
-        }
-
-        function handleAuthSubmit(e) {
-            e.preventDefault();
-            const input = document.getElementById('admin-pass-input');
-            const errorMsg = document.getElementById('auth-error-msg');
-            
-            if (input.value.trim() === ADMIN_PIN) {
-                closeAuthModal();
+        function verifyPin() {
+            const pin = document.getElementById('pin-input').value;
+            if (pin === '1811') {
+                closePinModal();
                 openAdminPanel();
             } else {
-                errorMsg.classList.remove('hidden');
-                input.value = '';
-                input.focus();
+                alert("PIN Incorrecto.");
+                document.getElementById('pin-input').value = '';
             }
         }
 
         function openAdminPanel() {
-            const modal = document.getElementById('admin-modal');
-            modal.classList.remove('hidden');
+            document.getElementById('admin-panel').classList.remove('hidden');
+            document.getElementById('admin-panel').classList.add('flex');
+            // Cargar datos actuales en los inputs
+            document.getElementById('adm-soporte').value = costs.soporte;
+            document.getElementById('adm-c100').value = costs.canaleta100;
+            document.getElementById('adm-c20').value = costs.canaleta20;
+            document.getElementById('adm-cordon').value = costs.cordon_metro;
             
-            document.getElementById('mat-soporte').value = materials.soporte;
-            document.getElementById('mat-canaleta100').value = materials.canaleta100;
-            document.getElementById('mat-canaleta20').value = materials.canaleta20;
-            document.getElementById('mat-cordon').value = materials.cordonMetro;
-            document.getElementById('cfg-labor').value = laborCost;
-            document.getElementById('cfg-margin').value = marginPercent;
-            
-            updateTotalMaterialsLabel();
-            selectAdminBrandTab(adminSelectedBrand);
+            document.getElementById('adm-h9').value = db.hisense[9000];
+            document.getElementById('adm-h12').value = db.hisense[12000];
+            document.getElementById('adm-h18').value = db.hisense[18000];
+            document.getElementById('adm-h24').value = db.hisense[24000];
         }
 
         function closeAdminPanel() {
-            document.getElementById('admin-modal').classList.add('hidden');
-            renderBrandView();
+            document.getElementById('admin-panel').classList.add('hidden');
+            document.getElementById('admin-panel').classList.remove('flex');
         }
 
-        function updateTotalMaterialsLabel() {
-            const total = getTotalKitMaterialsCost();
-            const label = document.getElementById('total-kit-materials-label');
-            if (label) label.innerText = `Total Insumos: ${formatCLP(total)}`;
-        }
-
-        function selectAdminBrandTab(brandKey) {
-            adminSelectedBrand = brandKey;
-            ['hisense', 'daikin', 'tcl', 'trane'].forEach(b => {
-                const btn = document.getElementById('adm-tab-' + b);
-                if (btn) {
-                    if (b === brandKey) {
-                        btn.className = "px-2.5 py-1 rounded-lg text-xs font-bold bg-brand-blue text-white shadow-sm";
-                    } else {
-                        btn.className = "px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-100 text-slate-700";
-                    }
-                }
-            });
-            renderAdminEquipmentEditor();
-        }
-
-        function renderAdminEquipmentEditor() {
-            const container = document.getElementById('admin-equipment-editor');
-            const brand = catalogData[adminSelectedBrand];
-            if (!container || !brand) return;
-
-            let html = `
-                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 mb-2">
-                    <div class="flex items-center justify-between mb-2">
-                        <h4 class="font-black text-brand-dark text-xs uppercase flex items-center gap-1.5">
-                            <span class="w-2 h-2 rounded-full bg-brand-blue"></span>
-                            ${brand.fullName}
-                        </h4>
-                        <span class="text-[10px] text-slate-500 font-semibold bg-white px-2 py-0.5 rounded border border-slate-200">
-                            ${brand.items.length} Capacidades
-                        </span>
-                    </div>
-                    <div class="space-y-2">
-            `;
-
-            brand.items.forEach((item, idx) => {
-                const pricing = calculatePricing(item.baseCost);
-                html += `
-                    <div class="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
-                        <div>
-                            <span class="text-xs font-black text-slate-800 block">${item.btu} (${item.sqm})</span>
-                            <span class="text-[10.5px] text-emerald-700 font-bold block">
-                                Precio Venta: <strong>${formatCLP(pricing.total)}</strong> (IVA incl.)
-                            </span>
-                        </div>
-                        <div class="flex items-center gap-2 self-end sm:self-auto">
-                            <span class="text-[10px] font-bold text-slate-500">Costo Proveedor:</span>
-                            <div class="flex items-center gap-1">
-                                <span class="text-xs font-bold text-slate-400">$</span>
-                                <input type="number" 
-                                       step="100" 
-                                       value="${item.baseCost}" 
-                                       oninput="updateBaseCost('${adminSelectedBrand}', ${idx}, this.value)" 
-                                       class="w-24 text-right font-black text-xs p-1 border border-slate-300 rounded focus:border-brand-blue">
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            html += `</div></div>`;
-            container.innerHTML = html;
-        }
-
-        function updateBaseCost(brandKey, index, value) {
-            catalogData[brandKey].items[index].baseCost = parseFloat(value) || 0;
-            renderAdminEquipmentEditor();
-            renderBrandView();
-        }
-
-        function updateGlobalParams() {
-            laborCost = parseFloat(document.getElementById('cfg-labor').value) || 0;
-            marginPercent = parseFloat(document.getElementById('cfg-margin').value) || 0;
-            renderAdminEquipmentEditor();
-            renderBrandView();
-        }
-
-        function updateMaterials() {
-            materials.soporte = parseFloat(document.getElementById('mat-soporte').value) || 0;
-            materials.canaleta100 = parseFloat(document.getElementById('mat-canaleta100').value) || 0;
-            materials.canaleta20 = parseFloat(document.getElementById('mat-canaleta20').value) || 0;
-            materials.cordonMetro = parseFloat(document.getElementById('mat-cordon').value) || 0;
-            updateTotalMaterialsLabel();
-            renderAdminEquipmentEditor();
-            renderBrandView();
-        }
-
-        function resetDefaults() {
-            for (let b in defaultCatalogData) {
-                catalogData[b] = JSON.parse(JSON.stringify(defaultCatalogData[b]));
-            }
-            materials = JSON.parse(JSON.stringify(defaultMaterials));
-            laborCost = 120000;
-            marginPercent = 15;
+        function saveAdminData() {
+            costs.soporte = Number(document.getElementById('adm-soporte').value);
+            costs.canaleta100 = Number(document.getElementById('adm-c100').value);
+            costs.canaleta20 = Number(document.getElementById('adm-c20').value);
+            costs.cordon_metro = Number(document.getElementById('adm-cordon').value);
             
-            document.getElementById('mat-soporte').value = materials.soporte;
-            document.getElementById('mat-canaleta100').value = materials.canaleta100;
-            document.getElementById('mat-canaleta20').value = materials.canaleta20;
-            document.getElementById('mat-cordon').value = materials.cordonMetro;
-            document.getElementById('cfg-labor').value = laborCost;
-            document.getElementById('cfg-margin').value = marginPercent;
+            db.hisense[9000] = Number(document.getElementById('adm-h9').value);
+            db.hisense[12000] = Number(document.getElementById('adm-h12').value);
+            db.hisense[18000] = Number(document.getElementById('adm-h18').value);
+            db.hisense[24000] = Number(document.getElementById('adm-h24').value);
             
-            updateTotalMaterialsLabel();
-            renderAdminEquipmentEditor();
-            renderBrandView();
+            closeAdminPanel();
+            renderCatalog();
+            alert("¡Costos actualizados correctamente!");
         }
 
-        function switchMaintTab(tab) {
-            document.querySelectorAll('.maint-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.maint-tab-btn').forEach(btn => {
-                btn.classList.remove('bg-brand-blue', 'text-white', 'shadow');
-                btn.classList.add('text-slate-700');
-            });
+        // Iniciar catálogo en background
+        renderCatalog();
 
-            const target = document.getElementById('maint-content-' + tab);
-            if (target) target.classList.remove('hidden');
-
-            const btn = document.getElementById('maint-btn-' + tab);
-            if (btn) {
-                btn.classList.remove('text-slate-700');
-                btn.classList.add('bg-brand-blue', 'text-white', 'shadow');
-            }
-        }
     </script>
 </body>
 </html>
