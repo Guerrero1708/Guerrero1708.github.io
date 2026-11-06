@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Tailwind CSS (Usado de forma encapsulada para el catálogo interactivo) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -382,13 +382,6 @@
             color: #93c5fd;
         }
 
-        .equipment-shadow {
-            filter: drop-shadow(0 18px 24px rgba(15, 23, 42, 0.18)) drop-shadow(0 4px 6px rgba(15, 23, 42, 0.08));
-        }
-        .showroom-podium {
-            background: radial-gradient(ellipse at 50% 80%, rgba(73, 129, 243, 0.15) 0%, rgba(241, 246, 255, 0.6) 50%, transparent 75%);
-        }
-
         .fade-swap {
             animation: fadeInSwap 0.35s ease-out;
         }
@@ -662,46 +655,8 @@
                         </div>
                     </div>
 
-                    <!-- SHOWROOM FOTOGRÁFICO REALISTA -->
-                    <div class="relative py-3 px-2 sm:px-4 showroom-podium rounded-2xl my-3 border border-slate-100 flex flex-col items-center justify-center min-h-[175px]">
-                        
-                        <div class="absolute top-2 left-2 flex gap-1.5 z-10">
-                            <span class="text-[9.5px] font-black uppercase tracking-wider bg-white/90 backdrop-blur-md text-brand-dark px-2 py-0.5 rounded-md border border-slate-200 shadow-sm flex items-center gap-1">
-                                <i class="fas fa-check text-brand-blue"></i>
-                                Split + Exterior
-                            </span>
-                            <span class="text-[9.5px] font-black uppercase tracking-wider bg-blue-600/90 text-white px-2 py-0.5 rounded-md shadow-sm flex items-center gap-1">
-                                <i class="fas fa-wifi"></i>
-                                Wi-Fi
-                            </span>
-                        </div>
-
-                        <div class="absolute top-2 right-2 z-10">
-                            <span id="showroom-brand-tag" class="text-[10px] font-black tracking-widest uppercase bg-brand-dark text-white px-2.5 py-0.5 rounded-md shadow-sm">
-                                HISENSE
-                            </span>
-                        </div>
-
-                        <!-- Foto del Equipo en Alta Resolución con Respaldo Automático -->
-                        <div class="w-full flex items-center justify-center pt-5 pb-2 min-h-[140px]">
-                            <img id="product-photo" 
-                                 src="img/hisense.png" 
-                                 onerror="handleImageError(this)"
-                                 alt="Split Muro y Unidad Exterior en Alta Resolución" 
-                                 class="h-32 sm:h-44 object-contain equipment-shadow max-w-[92%] transition-all duration-300 hover:scale-105"
-                                 loading="lazy">
-                        </div>
-
-                        <div class="w-3/4 h-2 bg-gradient-to-r from-transparent via-slate-300/60 to-transparent rounded-full filter blur-[1px]"></div>
-                        
-                        <p class="text-[10.5px] text-slate-500 font-semibold mt-1 flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                            <span>Conjunto completo con unidad exterior, placa Inverter y display LED</span>
-                        </p>
-                    </div>
-
                     <!-- SELECTOR DE CAPACIDAD CON METROS CUADRADOS -->
-                    <div class="mt-2 mb-3">
+                    <div class="mt-4 mb-3">
                         <span class="text-[11px] font-extrabold uppercase text-slate-600 tracking-wider block mb-1.5 flex items-center justify-between">
                             <span>1. Elige la Capacidad según tus Espacios:</span>
                             <span class="text-[10.5px] font-semibold text-brand-blue" id="sqm-guide-text">Dormitorios hasta 18 m²</span>
@@ -768,6 +723,12 @@
                                 <strong class="text-slate-800 block">Cordón Eléctrico</strong>
                                 3 metros incluidos
                             </div>
+                        </div>
+                        
+                        <!-- Nota sobre la tubería -->
+                        <div class="mt-2.5 bg-blue-50/80 p-2 rounded-xl border border-blue-200/60 text-slate-700 text-[10px] leading-snug flex items-start gap-1.5">
+                            <i class="fas fa-info-circle text-brand-blue mt-0.5"></i>
+                            <span><strong>Importante:</strong> La instalación considera <strong>hasta 3 metros de tubería frigorífica</strong> para la separación entre la unidad interior y exterior. Metraje adicional se cotiza por separado en terreno.</span>
                         </div>
                     </div>
 
@@ -1119,19 +1080,6 @@
                 </div>
             </div>
 
-            <!-- Editor de Imagen de la Marca en Admin -->
-            <div class="px-4 py-2 bg-blue-50/50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-                <div class="flex items-center gap-2">
-                    <i class="fas fa-image text-brand-blue"></i>
-                    <span class="font-bold text-slate-700">Ruta o URL Imagen HD:</span>
-                </div>
-                <input type="text" 
-                       id="admin-image-input" 
-                       class="w-full sm:w-80 p-1.5 text-xs font-mono border border-slate-300 rounded-lg focus:ring-1 focus:ring-brand-blue" 
-                       placeholder="Ej: img/hisense.png o https://..."
-                       onchange="updateBrandImage(this.value)">
-            </div>
-
             <div class="p-4 overflow-y-auto flex-grow" id="admin-equipment-editor">
                 <!-- Se llena dinámicamente con JS -->
             </div>
@@ -1253,7 +1201,7 @@ Correo: ventas@easycoolclimatizacion.com`;
         // --- 3. LÓGICA FINANCIERA Y DINÁMICA DEL CATÁLOGO ---
         const ADMIN_PIN = "1811";
         let laborCost = 120000;
-        let marginPercent = 20;
+        let marginPercent = 20; // Inicializado en 20% por defecto
 
         let materials = {
             soporte: 7500,
@@ -1263,21 +1211,12 @@ Correo: ventas@easycoolclimatizacion.com`;
             cordonMetrosCant: 3
         };
 
-        // Respaldo de imágenes de alta resolución en la nube por si aún no has subido las fotos a tu carpeta img/
-        const highResFallbacks = {
-            hisense: "https://images.unsplash.com/photo-1614633837777-6288339f4e5d?auto=format&fit=crop&w=800&q=85",
-            daikin: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=800&q=85",
-            tcl: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=85",
-            trane: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=85"
-        };
-
         const catalogData = {
             hisense: {
                 name: "Hisense",
                 fullName: "Hisense Hi-Vida Inverter",
                 series: "Split Muro Inverter • Serie Hi-Vida",
                 tagColor: "bg-[#00897B]",
-                image: "img/hisense.png",
                 items: [
                     { btu: "9.000 BTU", baseCost: 224900, sqm: "Hasta 18 m²", note: "Dormitorios o salas de estudio" },
                     { btu: "12.000 BTU", baseCost: 245900, sqm: "Hasta 24 m²", note: "Dormitorio principal o estar mediano" },
@@ -1290,7 +1229,6 @@ Correo: ventas@easycoolclimatizacion.com`;
                 fullName: "Daikin Inverter (Japón)",
                 series: "Split Muro Inverter • Calidad Japonesa Premium",
                 tagColor: "bg-[#0097D8]",
-                image: "img/daikin.png",
                 items: [
                     { btu: "9.000 BTU", baseCost: 231900, sqm: "Hasta 18 m²", note: "Ultra silencioso para dormitorios" },
                     { btu: "12.000 BTU", baseCost: 239990, sqm: "Hasta 24 m²", note: "Dormitorio principal / home office" },
@@ -1303,7 +1241,6 @@ Correo: ventas@easycoolclimatizacion.com`;
                 fullName: "TCL Smart Inverter",
                 series: "Split Muro Inverter • Conectividad Smart WiFi",
                 tagColor: "bg-[#D92525]",
-                image: "img/tcl.png",
                 items: [
                     { btu: "12.000 BTU", baseCost: 237900, sqm: "Hasta 24 m²", note: "Dormitorios amplios y salas de estar" },
                     { btu: "18.000 BTU", baseCost: 316990, sqm: "Hasta 36 m²", note: "Living o espacios comunes integrados" },
@@ -1315,7 +1252,6 @@ Correo: ventas@easycoolclimatizacion.com`;
                 fullName: "Trane Heavy Duty Inverter",
                 series: "Split Muro Inverter • Resistencia Heavy Duty",
                 tagColor: "bg-[#EB4C26]",
-                image: "img/trane.png",
                 items: [
                     { btu: "12.000 BTU", baseCost: 240900, sqm: "Hasta 24 m²", note: "Excelente durabilidad en uso continuo" },
                     { btu: "18.000 BTU", baseCost: 362900, sqm: "Hasta 36 m²", note: "Robusto para oficinas y livings" },
@@ -1373,16 +1309,6 @@ Correo: ventas@easycoolclimatizacion.com`;
             document.getElementById('brand-title').innerText = data.fullName;
             document.getElementById('brand-series-subtitle').innerText = data.series;
             
-            const tag = document.getElementById('showroom-brand-tag');
-            tag.innerText = data.name.toUpperCase();
-            tag.className = `text-[10px] font-black tracking-widest uppercase text-white px-2.5 py-0.5 rounded-md shadow-sm ${data.tagColor}`;
-
-            const photo = document.getElementById('product-photo');
-            photo.classList.remove('fade-swap');
-            void photo.offsetWidth;
-            photo.src = data.image;
-            photo.classList.add('fade-swap');
-
             const btuContainer = document.getElementById('btu-selector-container');
             btuContainer.innerHTML = '';
 
@@ -1449,14 +1375,6 @@ Correo: ventas@easycoolclimatizacion.com`;
                 logoClickCount = 0;
                 clearTimeout(logoClickResetTimeout);
                 openAuthModal();
-            }
-        }
-
-        // Función de seguridad en caso de que la imagen local no exista aún en GitHub
-        function handleImageError(imgElement) {
-            const fallback = highResFallbacks[currentBrand];
-            if (fallback && imgElement.src !== fallback) {
-                imgElement.src = fallback;
             }
         }
 
@@ -1528,19 +1446,7 @@ Correo: ventas@easycoolclimatizacion.com`;
                 }
             });
 
-            const imgInput = document.getElementById('admin-image-input');
-            if (imgInput && catalogData[brandKey]) {
-                imgInput.value = catalogData[brandKey].image;
-            }
-
             renderAdminEquipmentEditor();
-        }
-
-        function updateBrandImage(newPath) {
-            if (catalogData[adminSelectedBrand]) {
-                catalogData[adminSelectedBrand].image = newPath.trim();
-                renderBrandView();
-            }
         }
 
         function renderAdminEquipmentEditor() {
@@ -1620,7 +1526,7 @@ Correo: ventas@easycoolclimatizacion.com`;
             }
             materials = JSON.parse(JSON.stringify(defaultMaterials));
             laborCost = 120000;
-            marginPercent = 20;
+            marginPercent = 20; // Reiniciar en 20%
             
             document.getElementById('mat-soporte').value = materials.soporte;
             document.getElementById('mat-canaleta100').value = materials.canaleta100;
@@ -1650,6 +1556,12 @@ Correo: ventas@easycoolclimatizacion.com`;
                 btn.classList.add('bg-brand-blue', 'text-white', 'shadow');
             }
         }
+        
+        // Inicializar la data interna (sin abrir el modal de inmediato)
+        window.onload = function() {
+            // Pre-cargamos los datos para cuando se abra el modal
+            renderBrandView();
+        };
     </script>
 </body>
 </html>
